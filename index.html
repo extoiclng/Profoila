@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('projects')">Projects</a></li>
+                <li><a href="#" onclick="showSection('services')">Services</a></li>
+                <li><a href="#" onclick="showSection('skills')">Skills</a></li>
+                <li><a href="#" onclick="showSection('education')">Education</a></li>
+                <li><a href="#" onclick="showSection('experience')">Experience</a></li>
+                <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home" class="tab-section">
+        <h2>Home</h2>
+        <p>This is a brief introduction about myself. Information about myself goes here.</p>
+        <div class="animated-label">
+            <span>I'm a </span><span class="dynamic-text">Developer</span>
+        </div>
+        <div class="social-links" data-aos="fade-up" data-aos-duration="1500">
+            <a href="#" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+        <div class="typewriter-text"></div> <!-- Added element for typewriter effect -->
+    </section>
+    <section id="projects" class="tab-section" style="display:none;">
+        <h2>Projects</h2>
+        <p>Showcase of my work will be displayed here.</p>
+    </section>
+    <section id="services" class="tab-section" style="display:none;">
+        <h2>Services</h2>
+        <p>Details about the services I offer.</p>
+    </section>
+    <section id="skills" class="tab-section" style="display:none;">
+        <h2>Skills</h2>
+        <p>List of my skills.</p>
+    </section>
+    <section id="education" class="tab-section" style="display:none;">
+        <h2>Education</h2>
+        <p>Information about my education.</p>
+    </section>
+    <section id="experience" class="tab-section" style="display:none;">
+        <h2>Experience</h2>
+        <p>Details about my work experience.</p>
+    </section>
+    <section id="contact" class="tab-section" style="display:none;">
+        <h2>Contact</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+    <section id="logo-box" class="tab-section" style="display:none;">
+        <a href="https://www.instagram.com" target="_blank" style="display: block; text-align: center;">
+            <h2>Logo Box</h2>
+            <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png" alt="Instagram Logo" style="width: 150px; height: auto;">
+        </a>
+    </section>
+    <footer>
+        <p>&copy; 2023 My Portfolio</p>
+    </footer>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.tab-section');
+            sections.forEach(section => {
+                section.style.display = 'none'; // Hide all sections
+            });
+            document.getElementById(sectionId).style.display = 'block'; // Show the selected section
+        }
+
+        // Typewriter Effect
+        const texts = [
+            "DEVELOPER",
+            "DESIGNER",
+            "YOUTUBER"
+        ];
+        let speed = 100;
+        const textElements = document.querySelector(".typewriter-text");
+        let textIndex = 0;
+        let charcterIndex = 0;
+
+        function typeWriter(){
+            if (charcterIndex < texts[textIndex].length){
+                textElements.innerHTML += texts[textIndex].charAt(charcterIndex);
+                charcterIndex++;
+                setTimeout(typeWriter, speed);
+            }
+            else{
+                setTimeout(eraseText, 1000);
+            }
+        }
+
+        function eraseText(){
+            if(textElements.innerHTML.length > 0){
+                textElements.innerHTML = textElements.innerHTML.slice(0,-1);
+                setTimeout(eraseText, 50);
+            }
+            else{
+                textIndex = (textIndex + 1) % texts.length;
+                charcterIndex = 0;
+                setTimeout(typeWriter, 500);
+            }
+        }
+
+        window.onload = typeWriter;
+        AOS.init({offset:0});
+    </script>
+</body>
+</html>
