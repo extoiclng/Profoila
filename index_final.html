@@ -29,7 +29,6 @@
             <span>I'm a </span><span class="dynamic-text">Developer</span>
         </div>
         <div class="social-links" data-aos="fade-up" data-aos-duration="1500">
-            <a href="#" target="_blank"><i class="fa-brands fa-github"></i></a>
             <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
             <a href="#" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
             <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
@@ -39,6 +38,14 @@
     <section id="projects" class="tab-section" style="display:none;">
         <h2>Projects</h2>
         <p>Showcase of my work will be displayed here.</p>
+        <div class="github-link">
+            <a href="https://github.com/extoiclng/Point-of-Sale-POS-System" target="_blank">View Code on GitHub</a>
+        </div>
+        <div class="code-screenshot-container" style="background-color: black; padding: 20px;">
+            <div class="code-screenshot" id="screenshot1">Screenshot 1</div>
+            <div class="code-screenshot" id="screenshot2" style="display:none;">Screenshot 2</div>
+            <div class="code-screenshot" id="screenshot3" style="display:none;">Screenshot 3</div>
+        </div>
     </section>
     <section id="services" class="tab-section" style="display:none;">
         <h2>Services</h2>
@@ -86,6 +93,19 @@
             });
             document.getElementById(sectionId).style.display = 'block'; // Show the selected section
         }
+
+        // Code Screenshot Animation
+        let currentScreenshot = 0;
+        const screenshots = document.querySelectorAll('.code-screenshot');
+
+        function rotateScreenshots() {
+            screenshots.forEach((screenshot, index) => {
+                screenshot.style.display = index === currentScreenshot ? 'block' : 'none';
+            });
+            currentScreenshot = (currentScreenshot + 1) % screenshots.length;
+        }
+
+        setInterval(rotateScreenshots, 3000); // Change screenshot every 3 seconds
 
         // Typewriter Effect
         const texts = [
