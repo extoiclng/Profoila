@@ -7,6 +7,98 @@
     <title>My Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    <style>
+        /* Additional styles for animations and transitions */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Set background to black */
+            color: #fff; /* Set text color to white for contrast */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #000000; /* Gold color for the header */
+            color: #000; /* Black text for the header */
+            padding: 15px 0; /* Increased padding for better appearance */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #000; /* Black text for links */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #FFD700; /* Change color on hover to gold */
+        }
+
+        .tab-section {
+            padding: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Contact form styles */
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        #contact input, #contact textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        #contact input:focus, #contact textarea:focus {
+            border-color: #FFD700; /* Gold border on focus */
+            outline: none;
+        }
+
+        /* Skills section styles */
+        #skills p {
+            margin: 0;
+        }
+
+        /* Button styles */
+        button {
+            background-color: #FFD700; /* Gold background */
+            color: black; /* Black text for better visibility */
+            border: 2px solid #FFD700; /* Gold border */
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FFD700; /* Gold background on hover */
+            color: black; /* Black text on hover */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -22,7 +114,7 @@
             </ul>
         </nav>
     </header>
-    <section id="home" class="tab-section">
+    <section id="home" class="tab-section" data-aos="fade-up">
         <h2>Home</h2>
         <p>This is a brief introduction about myself. Information about myself goes here.</p>
         <div class="animated-label">
@@ -35,35 +127,41 @@
         </div>
         <div class="typewriter-text"></div> <!-- Added element for typewriter effect -->
     </section>
-    <section id="projects" class="tab-section" style="display:none;">
+    <section id="projects" class="tab-section" style="display:none;" data-aos="fade-up">
         <h2>Projects</h2>
         <p>Showcase of my work will be displayed here.</p>
-        <div class="github-link">
-            <a href="https://github.com/extoiclng/Point-of-Sale-POS-System" target="_blank">View Code on GitHub</a>
-        </div>
-        <div class="code-screenshot-container" style="background-color: black; padding: 20px;">
-            <div class="code-screenshot" id="screenshot1">Screenshot 1</div>
-            <div class="code-screenshot" id="screenshot2" style="display:none;">Screenshot 2</div>
-            <div class="code-screenshot" id="screenshot3" style="display:none;">Screenshot 3</div>
+        <div style="display: flex; justify-content: space-between;">
+            <div class="github-link" style="flex: 1;">
+                <a href="https://github.com/extoiclng/Point-of-Sale-POS-System" target="_blank">View Code on GitHub</a>
+                <div class="code-screenshot" id="screenshot1">Screenshot 1</div>
+            </div>
+            <div class="github-link" style="flex: 1; text-align: right;">
+                <a href="https://github.com/username/project1" target="_blank">View Project 1 on GitHub</a>
+                <div class="code-screenshot" id="screenshot2" style="display:none;">Screenshot 2</div>
+            </div>
+            <div class="github-link" style="flex: 1; text-align: right;">
+                <a href="https://github.com/username/project2" target="_blank">View Project 2 on GitHub</a>
+                <div class="code-screenshot" id="screenshot3" style="display:none;">Screenshot 3</div>
+            </div>
         </div>
     </section>
-    <section id="services" class="tab-section" style="display:none;">
+    <section id="services" class="tab-section" style="display:none;" data-aos="fade-up">
         <h2>Services</h2>
         <p>Details about the services I offer.</p>
     </section>
-    <section id="skills" class="tab-section" style="display:none;">
+    <section id="skills" class="tab-section" style="display:none;" data-aos="fade-up">
         <h2>Skills</h2>
-        <p>List of my skills.</p>
+        <p>I can code in HTML, Java, Python, and CSS.</p>
     </section>
-    <section id="education" class="tab-section" style="display:none;">
+    <section id="education" class="tab-section" style="display:none;" data-aos="fade-up">
         <h2>Education</h2>
         <p>Information about my education.</p>
     </section>
-    <section id="experience" class="tab-section" style="display:none;">
+    <section id="experience" class="tab-section" style="display:none;" data-aos="fade-up">
         <h2>Experience</h2>
         <p>Details about my work experience.</p>
     </section>
-    <section id="contact" class="tab-section" style="display:none;">
+    <section id="contact" class="tab-section" style="display:none;" data-aos="fade-up">
         <h2>Contact</h2>
         <form>
             <label for="name">Name:</label>

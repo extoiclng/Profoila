@@ -13,7 +13,7 @@ body {
 }
 
 header {
-    background: #000000; /* Change header to black */
+    background: #000000; /* Ensure header is black */
     color: #ffffff;
     padding: 20px 0;
     text-align: center;
@@ -30,12 +30,12 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #ffffff; /* White text for tabs */
+    color: #000000; /* Black text for tabs */
     text-decoration: none;
-    background-color: #000000; /* Black background for tabs */
+    background-color: #ffffff; /* White background for tabs */
     padding: 5px 10px;
     border-radius: 5px;
-    border: 2px solid #ffcc00; /* Gold border for tabs */
+    border: 2px solid #000000; /* Black border for tabs */
 }
 
 nav ul li a:hover {
@@ -68,7 +68,7 @@ footer {
     text-align: center;
     margin: 20px;
     padding: 20px;
-    background: #ffcc00; /* Gold background for logo box */
+    background: #000000; /* Gold background for logo box */
     border-radius: 5px;
 }
 
@@ -93,7 +93,7 @@ footer {
 /* Button styles */
 button {
     background-color: #000000; /* Black background for buttons */
-    color: #ffcc00; /* Gold text for better visibility */
+    color: #000000; /* Gold text for better visibility */
     border: 3px solid #ffcc00; /* Gold border for buttons */
     padding: 10px 20px;
     border-radius: 5px;
