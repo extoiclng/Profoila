@@ -3,100 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
     <style>
-        /* Additional styles for animations and transitions */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000; /* Set background to black */
-            color: #fff; /* Set text color to white for contrast */
+        /* Reset some default styles */
+        body, h1, h2, p, ul {
             margin: 0;
             padding: 0;
         }
 
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #000000; /* Black background */
+            color: #ffffff; /* White text */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
         header {
-            background: #000000; /* Gold color for the header */
-            color: #000; /* Black text for the header */
-            padding: 15px 0; /* Increased padding for better appearance */
+            background: #000000; /* Ensure header is black */
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         nav ul {
             list-style: none;
-            display: flex;
-            justify-content: center;
+            text-align: center;
             padding: 0;
+            margin: 0;
         }
 
         nav ul li {
+            display: inline-block;
             margin: 0 15px;
         }
 
         nav ul li a {
-            color: #000; /* Black text for links */
+            color: #ffffff; /* White text for tabs */
             text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #FFD700; /* Change color on hover to gold */
-        }
-
-        .tab-section {
-            padding: 20px;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Contact form styles */
-        #contact form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        #contact input, #contact textarea {
-            padding: 10px;
-            border: 1px solid #ccc;
+            padding: 10px 20px;
             border-radius: 5px;
-            transition: border-color 0.3s;
-        }
-
-        #contact input:focus, #contact textarea:focus {
-            border-color: #FFD700; /* Gold border on focus */
-            outline: none;
-        }
-
-        /* Skills section styles */
-        #skills p {
-            margin: 0;
-        }
-
-        /* Button styles */
-        button {
-            background-color: #FFD700; /* Gold background */
-            color: black; /* Black text for better visibility */
-            border: 2px solid #FFD700; /* Gold border */
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
         }
 
-        button:hover {
-            background-color: #FFD700; /* Gold background on hover */
-            color: black; /* Black text on hover */
+        nav ul li a:hover {
+            background-color: #ff0000; /* Red background on hover */
+            color: #ffffff;
+        }
+
+        .tab-section {
+            padding: 40px;
+            margin: 20px;
+            background: #1a1a1a; /* Dark gray background for sections */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            min-height: calc(100vh - 200px); /* Adjust height to fit the viewport */
+            display: none; /* Hide all sections by default */
+            transform-style: preserve-3d; /* Enable 3D transformations */
+            perspective: 1000px; /* Add perspective for 3D effect */
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #000000; /* Black background for footer */
+            color: #ffffff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-group {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .project {
+            margin: 0 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .screenshot-box {
+            position: relative;
+            overflow: hidden;
+            width: 300px; /* Fixed width for the box */
+            height: 200px; /* Fixed height for the box */
+        }
+
+        .screenshot-box img {
+            width: 100%; /* Responsive */
+            height: auto; /* Maintain aspect ratio */
+            transition: opacity 0.5s ease;
+        }
+
+        .arrows {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            opacity: 0.7; /* Subtle visibility */
+        }
+
+        .arrows button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .arrows button:hover {
+            opacity: 1; /* More visible on hover */
         }
     </style>
 </head>
@@ -104,17 +136,17 @@
     <header>
         <nav>
             <ul>
-                <li><a href="#" onclick="showSection('home')">Home</a></li>
-                <li><a href="#" onclick="showSection('projects')">Projects</a></li>
-                <li><a href="#" onclick="showSection('services')">Services</a></li>
-                <li><a href="#" onclick="showSection('skills')">Skills</a></li>
-                <li><a href="#" onclick="showSection('education')">Education</a></li>
-                <li><a href="#" onclick="showSection('experience')">Experience</a></li>
-                <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+                <li><a href="#" data-tab="home">Home</a></li>
+                <li><a href="#" data-tab="projects">Projects</a></li>
+                <li><a href="#" data-tab="services">Services</a></li>
+                <li><a href="#" data-tab="skills">Skills</a></li>
+                <li><a href="#" data-tab="education">Education</a></li>
+                <li><a href="#" data-tab="experience">Experience</a></li>
+                <li><a href="#" data-tab="contact">Contact</a></li>
             </ul>
         </nav>
     </header>
-    <section id="home" class="tab-section" data-aos="fade-up">
+    <section id="home" class="tab-section active" data-aos="fade-up">
         <h2>Home</h2>
         <p>This is a brief introduction about myself. Information about myself goes here.</p>
         <div class="animated-label">
@@ -125,45 +157,138 @@
             <a href="#" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
             <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
         </div>
-        <div class="typewriter-text"></div> <!-- Added element for typewriter effect -->
     </section>
-    <section id="projects" class="tab-section" style="display:none;" data-aos="fade-up">
+    <section id="projects" class="tab-section" data-aos="fade-up">
         <h2>Projects</h2>
         <p>Showcase of my work will be displayed here.</p>
-        <div style="display: flex; justify-content: space-between;">
-            <div class="github-link" style="flex: 1;">
-                <a href="https://github.com/extoiclng/Point-of-Sale-POS-System" target="_blank">View Code on GitHub</a>
-                <div class="code-screenshot" id="screenshot1">Screenshot 1</div>
+        <div class="project-group">
+            <div class="project">
+                <a href="https://github.com/project1" target="_blank">
+                    <div class="screenshot-box">
+                        <img src="path/to/image1.jpg" alt="Project 1 Screenshot">
+                        <div class="arrows">
+                            <button class="prev" onclick="prevImage(1)">&#10094;</button>
+                            <button class="next" onclick="nextImage(1)">&#10095;</button>
+                        </div>
+                    </div>
+                </a>
             </div>
-            <div class="github-link" style="flex: 1; text-align: right;">
-                <a href="https://github.com/username/project1" target="_blank">View Project 1 on GitHub</a>
-                <div class="code-screenshot" id="screenshot2" style="display:none;">Screenshot 2</div>
+            <div class="project">
+                <a href="https://github.com/project2" target="_blank">
+                    <div class="screenshot-box">
+                        <img src="path/to/image2.jpg" alt="Project 2 Screenshot">
+                        <div class="arrows">
+                            <button class="prev" onclick="prevImage(2)">&#10094;</button>
+                            <button class="next" onclick="nextImage(2)">&#10095;</button>
+                        </div>
+                    </div>
+                </a>
             </div>
-            <div class="github-link" style="flex: 1; text-align: right;">
-                <a href="https://github.com/username/project2" target="_blank">View Project 2 on GitHub</a>
-                <div class="code-screenshot" id="screenshot3" style="display:none;">Screenshot 3</div>
+            <div class="project">
+                <a href="https://github.com/project3" target="_blank">
+                    <div class="screenshot-box">
+                        <img src="path/to/image3.jpg" alt="Project 3 Screenshot">
+                        <div class="arrows">
+                            <button class="prev" onclick="prevImage(3)">&#10094;</button>
+                            <button class="next" onclick="nextImage(3)">&#10095;</button>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
+
+        <div class="project-group">
+            <div class="project">
+                <a href="https://github.com/project4" target="_blank">
+                    <div class="screenshot-box">
+                        <img src="path/to/image4.jpg" alt="Project 4 Screenshot">
+                        <div class="arrows">
+                            <button class="prev" onclick="prevImage(4)">&#10094;</button>
+                            <button class="next" onclick="nextImage(4)">&#10095;</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="project">
+                <a href="https://github.com/project5" target="_blank">
+                    <div class="screenshot-box">
+                        <img src="path/to/image5.jpg" alt="Project 5 Screenshot">
+                        <div class="arrows">
+                            <button class="prev" onclick="prevImage(5)">&#10094;</button>
+                            <button class="next" onclick="nextImage(5)">&#10095;</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="project">
+                <a href="https://github.com/project6" target="_blank">
+                    <div class="screenshot-box">
+                        <img src="path/to/image6.jpg" alt="Project 6 Screenshot">
+                        <div class="arrows">
+                            <button class="prev" onclick="prevImage(6)">&#10094;</button>
+                            <button class="next" onclick="nextImage(6)">&#10095;</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="project-group">
+            <div class="project">
+                <a href="https://github.com/project7" target="_blank">
+                    <div class="screenshot-box">
+                        <img src="path/to/image7.jpg" alt="Project 7 Screenshot">
+                        <div class="arrows">
+                            <button class="prev" onclick="prevImage(7)">&#10094;</button>
+                            <button class="next" onclick="nextImage(7)">&#10095;</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="project">
+                <a href="https://github.com/project8" target="_blank">
+                    <div class="screenshot-box">
+                        <img src="path/to/image8.jpg" alt="Project 8 Screenshot">
+                        <div class="arrows">
+                            <button class="prev" onclick="prevImage(8)">&#10094;</button>
+                            <button class="next" onclick="nextImage(8)">&#10095;</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="project">
+                <a href="https://github.com/project9" target="_blank">
+                    <div class="screenshot-box">
+                        <img src="path/to/image9.jpg" alt="Project 9 Screenshot">
+                        <div class="arrows">
+                            <button class="prev" onclick="prevImage(9)">&#10094;</button>
+                            <button class="next" onclick="nextImage(9)">&#10095;</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
     </section>
-    <section id="services" class="tab-section" style="display:none;" data-aos="fade-up">
+    <section id="services" class="tab-section" data-aos="fade-up">
         <h2>Services</h2>
         <p>Details about the services I offer.</p>
     </section>
-    <section id="skills" class="tab-section" style="display:none;" data-aos="fade-up">
+    <section id="skills" class="tab-section" data-aos="fade-up">
         <h2>Skills</h2>
         <p>I can code in HTML, Java, Python, and CSS.</p>
     </section>
-    <section id="education" class="tab-section" style="display:none;" data-aos="fade-up">
+    <section id="education" class="tab-section" data-aos="fade-up">
         <h2>Education</h2>
         <p>Information about my education.</p>
     </section>
-    <section id="experience" class="tab-section" style="display:none;" data-aos="fade-up">
+    <section id="experience" class="tab-section" data-aos="fade-up">
         <h2>Experience</h2>
         <p>Details about my work experience.</p>
     </section>
-    <section id="contact" class="tab-section" style="display:none;" data-aos="fade-up">
+    <section id="contact" class="tab-section" data-aos="fade-up">
         <h2>Contact</h2>
-        <form>
+        <form action="mailto:jesustmontalvo@gmail.com" method="post" enctype="text/plain">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
             <label for="email">Email:</label>
@@ -173,74 +298,99 @@
             <button type="submit">Send</button>
         </form>
     </section>
-    <section id="logo-box" class="tab-section" style="display:none;">
-        <a href="https://www.instagram.com" target="_blank" style="display: block; text-align: center;">
-            <h2>Logo Box</h2>
-            <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png" alt="Instagram Logo" style="width: 150px; height: auto;">
-        </a>
-    </section>
     <footer>
         <p>&copy; 2023 My Portfolio</p>
     </footer>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        function showSection(sectionId) {
+        // Tab Navigation with 3D Animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('nav ul li a');
             const sections = document.querySelectorAll('.tab-section');
-            sections.forEach(section => {
-                section.style.display = 'none'; // Hide all sections
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = tab.getAttribute('data-tab');
+
+                    // Hide all sections
+                    sections.forEach(section => {
+                        section.style.display = 'none';
+                        section.classList.remove('active');
+                    });
+
+                    // Show the selected section with 3D animation
+                    const activeSection = document.getElementById(target);
+                    activeSection.style.display = 'block';
+                    activeSection.classList.add('active');
+                });
             });
-            document.getElementById(sectionId).style.display = 'block'; // Show the selected section
-        }
 
-        // Code Screenshot Animation
-        let currentScreenshot = 0;
-        const screenshots = document.querySelectorAll('.code-screenshot');
-
-        function rotateScreenshots() {
-            screenshots.forEach((screenshot, index) => {
-                screenshot.style.display = index === currentScreenshot ? 'block' : 'none';
-            });
-            currentScreenshot = (currentScreenshot + 1) % screenshots.length;
-        }
-
-        setInterval(rotateScreenshots, 3000); // Change screenshot every 3 seconds
+            // Initialize the first tab as active
+            document.querySelector('nav ul li a').click();
+        });
 
         // Typewriter Effect
-        const texts = [
-            "DEVELOPER",
-            "DESIGNER",
-            "YOUTUBER"
-        ];
+        const texts = ["Developer", "Designer", "Youtuber"];
         let speed = 100;
-        const textElements = document.querySelector(".typewriter-text");
+        const textElement = document.querySelector(".dynamic-text");
         let textIndex = 0;
-        let charcterIndex = 0;
+        let charIndex = 0;
 
-        function typeWriter(){
-            if (charcterIndex < texts[textIndex].length){
-                textElements.innerHTML += texts[textIndex].charAt(charcterIndex);
-                charcterIndex++;
+        function typeWriter() {
+            if (charIndex < texts[textIndex].length) {
+                textElement.textContent += texts[textIndex].charAt(charIndex);
+                charIndex++;
                 setTimeout(typeWriter, speed);
-            }
-            else{
+            } else {
                 setTimeout(eraseText, 1000);
             }
         }
 
-        function eraseText(){
-            if(textElements.innerHTML.length > 0){
-                textElements.innerHTML = textElements.innerHTML.slice(0,-1);
+        function eraseText() {
+            if (textElement.textContent.length > 0) {
+                textElement.textContent = textElement.textContent.slice(0, -1);
                 setTimeout(eraseText, 50);
-            }
-            else{
+            } else {
                 textIndex = (textIndex + 1) % texts.length;
-                charcterIndex = 0;
+                charIndex = 0;
                 setTimeout(typeWriter, 500);
             }
         }
 
-        window.onload = typeWriter;
-        AOS.init({offset:0});
+        // Start the typewriter effect
+        typeWriter();
+
+        // Image Flipping Functionality
+        const images = {
+            1: ["path/to/image1.jpg", "path/to/image1b.jpg", "path/to/image1c.jpg"],
+            2: ["path/to/image2.jpg", "path/to/image2b.jpg", "path/to/image2c.jpg"],
+            3: ["path/to/image3.jpg", "path/to/image3b.jpg", "path/to/image3c.jpg"],
+            4: ["path/to/image4.jpg", "path/to/image4b.jpg", "path/to/image4c.jpg"],
+            5: ["path/to/image5.jpg", "path/to/image5b.jpg", "path/to/image5c.jpg"],
+            6: ["path/to/image6.jpg", "path/to/image6b.jpg", "path/to/image6c.jpg"],
+            7: ["path/to/image7.jpg", "path/to/image7b.jpg", "path/to/image7c.jpg"],
+            8: ["path/to/image8.jpg", "path/to/image8b.jpg", "path/to/image8c.jpg"],
+            9: ["path/to/image9.jpg", "path/to/image9b.jpg", "path/to/image9c.jpg"],
+        };
+
+        function prevImage(projectId) {
+            const box = document.querySelector(`.project:nth-child(${projectId}) .screenshot-box img`);
+            const currentSrc = box.src;
+            const currentIndex = images[projectId].indexOf(currentSrc);
+            const newIndex = (currentIndex - 1 + images[projectId].length) % images[projectId].length;
+            box.src = images[projectId][newIndex];
+        }
+
+        function nextImage(projectId) {
+            const box = document.querySelector(`.project:nth-child(${projectId}) .screenshot-box img`);
+            const currentSrc = box.src;
+            const currentIndex = images[projectId].indexOf(currentSrc);
+            const newIndex = (currentIndex + 1) % images[projectId].length;
+            box.src = images[projectId][newIndex];
+        }
+
+        AOS.init({ offset: 0 });
     </script>
 </body>
 </html>
