@@ -164,111 +164,13 @@
         <div class="project-group">
             <div class="project">
                 <a href="https://github.com/project1" target="_blank">
-                    <div class="screenshot-box">
-                        <img src="path/to/image1.jpg" alt="Project 1 Screenshot">
-                        <div class="arrows">
-                            <button class="prev" onclick="prevImage(1)">&#10094;</button>
-                            <button class="next" onclick="nextImage(1)">&#10095;</button>
-                        </div>
+                   <div class="carousel">
+                    <div class="carousel-inner">
+                        <a href="https://example.com/link1" target="_blank"><img src="https://via.placeholder.com/600x300?text=Image+1" alt="Image 1"></a>
+                        <a href="https://example.com/link2" target="_blank"><img src="https://via.placeholder.com/600x300?text=Image+2" alt="Image 2"></a>
+                        <a href="https://example.com/link3" target="_blank"><img src="https://via.placeholder.com/600x300?text=Image+3" alt="Image 3"></a>
                     </div>
-                </a>
-            </div>
-            <div class="project">
-                <a href="https://github.com/project2" target="_blank">
-                    <div class="screenshot-box">
-                        <img src="path/to/image2.jpg" alt="Project 2 Screenshot">
-                        <div class="arrows">
-                            <button class="prev" onclick="prevImage(2)">&#10094;</button>
-                            <button class="next" onclick="nextImage(2)">&#10095;</button>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="project">
-                <a href="https://github.com/project3" target="_blank">
-                    <div class="screenshot-box">
-                        <img src="path/to/image3.jpg" alt="Project 3 Screenshot">
-                        <div class="arrows">
-                            <button class="prev" onclick="prevImage(3)">&#10094;</button>
-                            <button class="next" onclick="nextImage(3)">&#10095;</button>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="project-group">
-            <div class="project">
-                <a href="https://github.com/project4" target="_blank">
-                    <div class="screenshot-box">
-                        <img src="path/to/image4.jpg" alt="Project 4 Screenshot">
-                        <div class="arrows">
-                            <button class="prev" onclick="prevImage(4)">&#10094;</button>
-                            <button class="next" onclick="nextImage(4)">&#10095;</button>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="project">
-                <a href="https://github.com/project5" target="_blank">
-                    <div class="screenshot-box">
-                        <img src="path/to/image5.jpg" alt="Project 5 Screenshot">
-                        <div class="arrows">
-                            <button class="prev" onclick="prevImage(5)">&#10094;</button>
-                            <button class="next" onclick="nextImage(5)">&#10095;</button>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="project">
-                <a href="https://github.com/project6" target="_blank">
-                    <div class="screenshot-box">
-                        <img src="path/to/image6.jpg" alt="Project 6 Screenshot">
-                        <div class="arrows">
-                            <button class="prev" onclick="prevImage(6)">&#10094;</button>
-                            <button class="next" onclick="nextImage(6)">&#10095;</button>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="project-group">
-            <div class="project">
-                <a href="https://github.com/project7" target="_blank">
-                    <div class="screenshot-box">
-                        <img src="path/to/image7.jpg" alt="Project 7 Screenshot">
-                        <div class="arrows">
-                            <button class="prev" onclick="prevImage(7)">&#10094;</button>
-                            <button class="next" onclick="nextImage(7)">&#10095;</button>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="project">
-                <a href="https://github.com/project8" target="_blank">
-                    <div class="screenshot-box">
-                        <img src="path/to/image8.jpg" alt="Project 8 Screenshot">
-                        <div class="arrows">
-                            <button class="prev" onclick="prevImage(8)">&#10094;</button>
-                            <button class="next" onclick="nextImage(8)">&#10095;</button>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="project">
-                <a href="https://github.com/project9" target="_blank">
-                    <div class="screenshot-box">
-                        <img src="path/to/image9.jpg" alt="Project 9 Screenshot">
-                        <div class="arrows">
-                            <button class="prev" onclick="prevImage(9)">&#10094;</button>
-                            <button class="next" onclick="nextImage(9)">&#10095;</button>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
+                   </div>
     </section>
     <section id="services" class="tab-section" data-aos="fade-up">
         <h2>Services</h2>
@@ -362,34 +264,13 @@
         typeWriter();
 
         // Image Flipping Functionality
-        const images = {
-            1: ["path/to/image1.jpg", "path/to/image1b.jpg", "path/to/image1c.jpg"],
-            2: ["path/to/image2.jpg", "path/to/image2b.jpg", "path/to/image2c.jpg"],
-            3: ["path/to/image3.jpg", "path/to/image3b.jpg", "path/to/image3c.jpg"],
-            4: ["path/to/image4.jpg", "path/to/image4b.jpg", "path/to/image4c.jpg"],
-            5: ["path/to/image5.jpg", "path/to/image5b.jpg", "path/to/image5c.jpg"],
-            6: ["path/to/image6.jpg", "path/to/image6b.jpg", "path/to/image6c.jpg"],
-            7: ["path/to/image7.jpg", "path/to/image7b.jpg", "path/to/image7c.jpg"],
-            8: ["path/to/image8.jpg", "path/to/image8b.jpg", "path/to/image8c.jpg"],
-            9: ["path/to/image9.jpg", "path/to/image9b.jpg", "path/to/image9c.jpg"],
-        };
-
-        function prevImage(projectId) {
-            const box = document.querySelector(`.project:nth-child(${projectId}) .screenshot-box img`);
-            const currentSrc = box.src;
-            const currentIndex = images[projectId].indexOf(currentSrc);
-            const newIndex = (currentIndex - 1 + images[projectId].length) % images[projectId].length;
-            box.src = images[projectId][newIndex];
+        let index = 0;
+        const images = document.querySelectorAll('.carousel-inner a');
+        const totalIamges = images.length;
+        function changeSlide(step) {
+            index = (index + step + totalIamges) % totalIamges;
+            document.querySelector('.carousel-inner').style.transform = `translateX(-${index * 100}%)`;         
         }
-
-        function nextImage(projectId) {
-            const box = document.querySelector(`.project:nth-child(${projectId}) .screenshot-box img`);
-            const currentSrc = box.src;
-            const currentIndex = images[projectId].indexOf(currentSrc);
-            const newIndex = (currentIndex + 1) % images[projectId].length;
-            box.src = images[projectId][newIndex];
-        }
-
         AOS.init({ offset: 0 });
     </script>
 </body>
