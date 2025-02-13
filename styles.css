@@ -160,3 +160,55 @@ button:hover {
     max-width: 300px; /* Limit max size */
     border-radius: 10px; /* Optional styling */
 }
+
+/* Carousel Styles */
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Maximum width for the carousel */
+    margin: auto;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%; /* Width for 1 image */
+}
+.carousel-inner a {
+    flex: 0 0 100%; /* Each image takes up 100% width */
+    display: block;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+    display: block; /* Ensure images are block elements */
+}
+
+.carousel .arrows {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.carousel .arrows button {
+    background: rgba(0, 0, 0, 0.7); /* Darker background for better visibility */
+    border: none;
+    color: white;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s; /* Added transform transition */
+}
+
+.carousel .arrows button:hover {
+    background: rgba(255, 0, 0, 1); /* Fully opaque on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
