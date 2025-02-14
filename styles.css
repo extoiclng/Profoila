@@ -215,10 +215,10 @@ button:hover {
 .image-box {
     display: flex;
     justify-content: center;
-    margin: 20px auto; /* Center the box horizontally */
-    padding: 10px;
+    margin: 10px auto; /* Center the box horizontally */
+    padding: 5px;
     background: #1a1a1a; /* Dark gray background */
     border-radius: 5px;
-    max-width: 30px; /* Limit the width of the box */
+    max-width: 50px; /* Limit the width of the box to be tiny */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Add some shadow for depth */
 }
