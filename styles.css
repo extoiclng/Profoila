@@ -212,12 +212,8 @@ button:hover {
     background: rgba(255, 0, 0, 1); /* Fully opaque on hover */
     transform: scale(1.1); /* Slightly enlarge on hover */
 }
-.container {
-    position: relative;
-  }
-
-.image_2 {
-    position: absolute;
-    left: 50px;
-    top: 50px;
-  }
+.image-box {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
