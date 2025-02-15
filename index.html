@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
     <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
         /* Reset some default styles */
         body, h1, h2, p, ul {
             margin: 0;
@@ -137,7 +144,6 @@
             <ul>
                 <li><a href="#" data-tab="home">Home</a></li>
                 <li><a href="#" data-tab="projects">Projects</a></li>
-                <li><a href="#" data-tab="services">Services</a></li>
                 <li><a href="#" data-tab="skills">Skills</a></li>
                 <li><a href="#" data-tab="education">Education</a></li>
                 <li><a href="#" data-tab="experience">Experience</a></li>
@@ -145,70 +151,58 @@
             </ul>
         </nav>
     </header>
-    <section id="home" class="tab-section active" data-aos="fade-up">
+    <section id="home" class="tab-section active animate-on-scroll" data-aos="fade-up">
         <h2>Home</h2>
         <p>This is a brief introduction about myself. Information about myself goes here.</p>
         <div class="animated-label">
-            <span>I'm a </span><span class="dynamic-text">Developer</span>
+            <span>I'm a </span><span class="dynamic-text"></span>
         </div>
         <div class="social-links" data-aos="fade-up" data-aos-duration="1500">
-            <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
         </div>
-        <div>
-        <a href="https://example.com/link1"target ="_blank">
-            <div class="image-box">
-                <img src="Screenshot 2024-05-21 210043.png" alt ="clickable Image">
+        <div style="float: right; width: 50%; padding: 20px;">
+            <div class="image-box" style="width: 100%; max-width: 600px; animation: float 3s ease-in-out infinite;">
+                <img src="Happy Pixel GIF by SMOL.gif" alt="Developer Animation" style="width: 100%; border-radius: 15px;">
             </div>
-        </a>
-    </div>
+        </div>
     </section>
-    <section id="projects" class="tab-section" data-aos="fade-up">
+    <section id="projects" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2>Projects</h2>
         <p>Showcase of my work will be displayed here.</p>
-                    <div class="carousel" role="region" aria-label="Image Carousel">
-
-                    <div class="carousel-inner">
-                        <a href="https://example.com/link1" target="_blank" aria-label="Link to Image 1">
-
-                            <img src="Screenshot 2024-05-21 210043.png" alt="Image 1"></a>
-
-                        <a href="https://example.com/link2" target="_blank" aria-label="Link to Image 2">
-
-                            <img src="https://via.placeholder.com/600/771796" alt="Image 2"></a>
-
-                        <a href="https://example.com/link3" target="_blank" aria-label="Link to Image 3">
-
-                            <img src="https://via.placeholder.com/600/24f355" alt="Image 3"></a>
-
-                    </div>
-                    <div class="arrows">
-                        <button onclick="changeSlide(-1)" aria-label="Previous Slide"><&#10094;</button>
-
-                        <button onclick="changeSlide(1)" aria-label="Next Slide"> &#10095;</button>
-
-                   </div>
+        <div class="carousel" role="region" aria-label="Image Carousel">
+            <div class="carousel-inner">
+                <a href="#" target="_blank" aria-label="Link to Image 1">
+                    <img src="Screenshot 2024-05-21 210043.png" alt="Project 1"></a>
+                <a href="#" target="_blank" aria-label="Link to Image 2">
+                    <img src="project2.jpg" alt="Project 2"></a>
+                <a href="#" target="_blank" aria-label="Link to Image 3">
+                    <img src="project3.jpg" alt="Project 3"></a>
+            </div>
+            <div class="arrows">
+                <button onclick="changeSlide(-1)" aria-label="Previous Slide"><&#10094;</button>
+                <button onclick="changeSlide(1)" aria-label="Next Slide"> &#10095;</button>
+            </div>
+        </div>
     </section>
-    <section id="services" class="tab-section" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>Details about the services I offer.</p>
-    </section>
-    <section id="skills" class="tab-section" data-aos="fade-up">
+    <section id="skills" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2>Skills</h2>
         <p>I can code in HTML, Java, Python, and CSS.</p>
     </section>
-    <section id="education" class="tab-section" data-aos="fade-up">
+    <section id="education" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2>Education</h2>
         <p>Information about my education.</p>
     </section>
-    <section id="experience" class="tab-section" data-aos="fade-up">
+    <section id="experience" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2>Experience</h2>
         <p>Details about my work experience.</p>
     </section>
-    <section id="contact" class="tab-section" data-aos="fade-up">
+    <section id="contact" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2>Contact</h2>
-        <form action="mailto:jesustmontalvo@gmail.com" method="post" enctype="text/plain">
+        <form id="contactForm" netlify>
+
+
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
             <label for="email">Email:</label>
@@ -216,12 +210,56 @@
             <label for="message">Message:</label>
             <textarea id="message" name="message" required></textarea>
             <button type="submit">Send</button>
+            <div id="formMessage" style="margin-top: 20px;"></div>
         </form>
+        <script>
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const formMessage = document.getElementById('formMessage');
+                formMessage.textContent = 'Sending message...';
+                formMessage.style.color = '#000';
+
+                fetch('/.netlify/functions/send-email', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        message: formData.get('message')
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+
+
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        formMessage.textContent = 'Message sent successfully!';
+                        formMessage.style.color = 'green';
+                        document.getElementById('contactForm').reset();
+                    } else {
+                        formMessage.textContent = 'Error sending message. Please try again.';
+                        formMessage.style.color = 'red';
+                    }
+                })
+                .catch(error => {
+                    formMessage.textContent = 'An error occurred. Please try again later.';
+                    formMessage.style.color = 'red';
+                    console.error('Error:', error);
+                });
+            });
+        </script>
+
+
     </section>
     <footer>
         <p>&copy; 2023 My Portfolio</p>
     </footer>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="animations.js"></script>
     <script>
         // Tab Navigation with 3D Animation
         document.addEventListener('DOMContentLoaded', () => {
@@ -284,10 +322,10 @@
         // Image Flipping Functionality
         let index = 0;
         const images = document.querySelectorAll('.carousel-inner a');
-        const totalIamges = images.length;
+        const totalImages = images.length;
         function changeSlide(step) {
-            index = (index + step + totalIamges) % totalIamges;
-            document.querySelector('.carousel-inner').style.transform = `translateX(-${index * 100}%)`;         
+            index = (index + step + totalImages) % totalImages;
+            document.querySelector('.carousel-inner').style.transform = `translateX(-${index * 100}%)`;
         }
         AOS.init({ offset: 0 });
     </script>

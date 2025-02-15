@@ -11,7 +11,11 @@ body {
     background-color: #000000; /* Black background */
     color: #ffffff; /* White text */
     overflow-x: hidden; /* Prevent horizontal scroll */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
+
 
 header {
     background: #000000; /* Ensure header is black */
@@ -59,7 +63,17 @@ nav ul li a:hover {
     display: none; /* Hide all sections by default */
     transform-style: preserve-3d; /* Enable 3D transformations */
     perspective: 1000px; /* Add perspective for 3D effect */
+    flex: 1;
 }
+
+@media (max-width: 768px) {
+    .tab-section {
+        padding: 20px;
+        margin: 10px;
+        min-height: auto;
+    }
+}
+
 
 footer {
     text-align: center;
@@ -92,7 +106,18 @@ footer {
     display: inline-block;
     color: #ffcc00; /* Gold text for dynamic text */
     font-weight: bold;
+    animation: textGlow 1.5s infinite alternate;
 }
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(255, 204, 0, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(255, 204, 0, 0.8);
+    }
+}
+
 
 /* Button styles */
 button {
@@ -102,12 +127,31 @@ button {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 button:hover {
     background-color: #ff9900; /* Darker gold on hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4);
+}
+
+
+button:hover {
+    background-color: #ff9900; /* Darker gold on hover */
     transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+/* Scroll Animation Classes */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.animated {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* 3D Transition Effect */
@@ -115,6 +159,7 @@ button:hover {
     display: block;
     animation: slideIn 0.8s ease-out forwards;
 }
+
 
 @keyframes slideIn {
     0% {
@@ -159,7 +204,14 @@ button:hover {
     width: 100%; /* Responsive */
     max-width: 300px; /* Limit max size */
     border-radius: 10px; /* Optional styling */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.project:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+
 
 /* Carousel Styles */
 .carousel {
