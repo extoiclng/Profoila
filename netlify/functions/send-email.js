@@ -25,6 +25,7 @@ exports.handler = async (event, context) => {
                 rejectUnauthorized: false
             }
         });
+        
 
         const mailOptions = {
             from: `"Portfolio Contact" <${process.env.GMAIL_EMAIL}>`,
