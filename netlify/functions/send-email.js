@@ -10,19 +10,17 @@ exports.handler = async (event, context) => {
 
     const { name, email, message } = JSON.parse(event.body);
 
-    // Create Outlook SMTP transporter
+    // Create Gmail SMTP transporter
     const transporter = nodemailer.createTransport({
-        host: 'smtp.office365.com',
-        port: 587,
-        secure: false,
+        service: 'gmail',
         auth: {
-            user: process.env.OUTLOOK_EMAIL,
-            pass: process.env.OUTLOOK_PASSWORD
+            user: process.env.GMAIL_EMAIL,
+            pass: process.env.GMAIL_PASSWORD
         }
     });
 
     const mailOptions = {
-        from: process.env.OUTLOOK_EMAIL,
+        from: process.env.GMAIL_EMAIL,
         to: process.env.TO_EMAIL,
         subject: `New message from ${name}`,
         text: message,
