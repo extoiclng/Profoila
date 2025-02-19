@@ -236,7 +236,7 @@ button:hover {
 
 .carousel-inner img {
     width: 100%;
-    height: fit-content;
+    height: min-content;
     display: block; /* Ensure images are block elements */
 }
 
