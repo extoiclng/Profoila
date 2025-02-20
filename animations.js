@@ -14,26 +14,37 @@ document.querySelectorAll('.animate-on-scroll').forEach(element => {
     observer.observe(element);
 });
 
-// Enhanced Typewriter effect with erase capability
+// Enhanced Typewriter effect with erase and queue capability
+let currentTypewriter;
 const typewriter = (element, text, speed = 50, erase = false) => {
+    // Clear any existing typewriter
+    if (currentTypewriter) {
+        clearTimeout(currentTypewriter);
+    }
+    
     let i = erase ? text.length : 0;
     const type = () => {
         if (erase) {
             if (i > 0) {
                 element.textContent = text.substring(0, i - 1);
                 i--;
-                setTimeout(type, speed / 2);
+                currentTypewriter = setTimeout(type, speed / 2);
+            } else {
+                currentTypewriter = null;
             }
         } else {
             if (i < text.length) {
                 element.textContent += text.charAt(i);
                 i++;
-                setTimeout(type, speed);
+                currentTypewriter = setTimeout(type, speed);
+            } else {
+                currentTypewriter = null;
             }
         }
     };
     type();
 };
+
 
 // Optimized carousel functionality
 let carouselTimeout;
