@@ -14,9 +14,9 @@ document.querySelectorAll('.animate-on-scroll').forEach(element => {
     observer.observe(element);
 });
 
-// Enhanced Typewriter effect with erase and queue capability
+// Enhanced Typewriter effect with queue and callback
 let currentTypewriter;
-const typewriter = (element, text, speed = 50, erase = false) => {
+const typewriter = (element, text, speed = 50, erase = false, callback) => {
     // Clear any existing typewriter
     if (currentTypewriter) {
         clearTimeout(currentTypewriter);
@@ -31,6 +31,7 @@ const typewriter = (element, text, speed = 50, erase = false) => {
                 currentTypewriter = setTimeout(type, speed / 2);
             } else {
                 currentTypewriter = null;
+                if (callback) callback();
             }
         } else {
             if (i < text.length) {
@@ -39,11 +40,37 @@ const typewriter = (element, text, speed = 50, erase = false) => {
                 currentTypewriter = setTimeout(type, speed);
             } else {
                 currentTypewriter = null;
+                if (callback) callback();
             }
         }
     };
     type();
 };
+
+// Project descriptions with highlighted keywords
+const projectDescriptions = [
+    {
+        text: "Point of Sale System - A complete retail management solution with barcode scanning and transaction management.",
+        keywords: ["Point of Sale", "barcode scanning", "transaction management"]
+    },
+    {
+        text: "Banking Application - Secure online banking platform with account management and transaction features.",
+        keywords: ["Banking Application", "account management", "transaction features"]
+    },
+    {
+        text: "AI Model - Machine learning model that learns from user feedback and improves over time.",
+        keywords: ["AI Model", "machine learning", "user feedback"]
+    }
+];
+
+// Highlight keywords in text
+const highlightKeywords = (text, keywords) => {
+    keywords.forEach(keyword => {
+        text = text.replace(new RegExp(keyword, 'g'), `<span class="highlight">${keyword}</span>`);
+    });
+    return text;
+};
+
 
 
 // Optimized carousel functionality
@@ -58,6 +85,16 @@ if (dynamicText) {
     dynamicText.textContent = '';
     typewriter(dynamicText, text);
 }
+
+// Initialize project descriptions
+const projectDescElement = document.getElementById('projectDesc');
+if (projectDescElement) {
+    projectDescElement.textContent = '';
+    typewriter(projectDescElement, projectDescriptions[0].text, 50, false, () => {
+        projectDescElement.innerHTML = highlightKeywords(projectDescriptions[0].text, projectDescriptions[0].keywords);
+    });
+}
+
 
 // Optimize carousel transitions
 document.querySelectorAll('.carousel-inner').forEach(carousel => {
