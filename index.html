@@ -185,7 +185,11 @@
                 <button onclick="changeSlide(1)" aria-label="Next Slide"> &#10095;</button>
             </div>
         </div>
+        <div class="project-description">
+            <p id="projectDesc" class="typewriter"></p>
+        </div>
     </section>
+
     <section id="skills" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2>Skills</h2>
         <p>I can code in HTML, Java, Python, and CSS.</p>
@@ -323,10 +327,28 @@
         let index = 0;
         const images = document.querySelectorAll('.carousel-inner a');
         const totalImages = images.length;
+        const projectDescriptions = [
+            "Point of Sale System - A complete retail management solution",
+            "Banking Application - Secure online banking platform",
+            "Project 3 - Description coming soon"
+        ];
+        
         function changeSlide(step) {
+            // Clear current description
+            const descElement = document.getElementById('projectDesc');
+            descElement.textContent = '';
+            
+            // Change slide
             index = (index + step + totalImages) % totalImages;
             document.querySelector('.carousel-inner').style.transform = `translateX(-${index * 100}%)`;
+            
+            // Type new description
+            typeWriter(descElement, projectDescriptions[index], 50);
         }
+        
+        // Initialize first description
+        document.getElementById('projectDesc').textContent = projectDescriptions[0];
+
         AOS.init({ offset: 0 });
     </script>
 </body>
