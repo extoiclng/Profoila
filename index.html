@@ -306,7 +306,9 @@
     </footer>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="animations.js"></script>
-    <script>
+    <script type="module">
+        import { projectDescriptions } from './animations.js';
+
         // Tab Navigation with 3D Animation
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('nav ul li a');
@@ -369,11 +371,7 @@
         let index = 0;
         const images = document.querySelectorAll('.carousel-inner a');
         const totalImages = images.length;
-        const projectDescriptions = [
-            "Point of Sale System - A complete retail management solution",
-            "Banking Application - Secure online banking platform",
-            "Project 3 - Description coming soon"
-        ];
+
         
         function changeSlide(step) {
             // Clear current description
@@ -385,7 +383,17 @@
             document.querySelector('.carousel-inner').style.transform = `translateX(-${index * 100}%)`;
             
             // Type new description
-            typeWriter(descElement, projectDescriptions[index], 50);
+            let currentChar = 0;
+            const description = projectDescriptions[index];
+            const typeInterval = setInterval(() => {
+                if (currentChar < description.length) {
+                    descElement.textContent += description.charAt(currentChar);
+                    currentChar++;
+                } else {
+                    clearInterval(typeInterval);
+                }
+            }, 50);
+
         }
         
         // Initialize first description
