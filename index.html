@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" media="print" onload="this.media='all'">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
     <style>
         @keyframes float {
@@ -164,7 +165,8 @@
         </div>
         <div style="float: right; width: 50%; padding: 20px;">
             <div class="image-box" style="width: 100%; max-width: 600px; animation: float 3s ease-in-out infinite;">
-                <img src="Happy Pixel GIF by SMOL.gif" alt="Developer Animation" style="width: 100%; border-radius: 15px;">
+                <img src="Happy Pixel GIF by SMOL.gif" alt="Developer Animation" style="width: 100%; border-radius: 15px;" loading="lazy">
+
             </div>
         </div>
     </section>
@@ -174,9 +176,11 @@
         <div class="carousel" role="region" aria-label="Image Carousel">
             <div class="carousel-inner">
                 <a href="https://github.com/extoiclng/Point-of-Sale-POS-System" target="_blank" aria-label="">
-                    <img src="tech.png" alt="Project 1"></a>
+                    <img src="tech.png" alt="Project 1" loading="lazy"></a>
+
                 <a href="https://codehs.com/sandbox/id/protype-dtapO5" target="_blank" aria-label="Link to Image 2">
-                    <img src="bank.png" alt="Project 2"></a>
+                    <img src="bank.png" alt="Project 2" loading="lazy"></a>
+
             </div>
             <div class="arrows">
                 <button onclick="changeSlide(-1)" aria-label="Previous Slide"><&#10094;</button>
@@ -257,7 +261,8 @@
             </div>
             <div class="education-image" style="flex: 1; background: #333; min-height: 300px; display: flex; align-items: center; justify-content: center;">
                 <span style="color: #666;"></span>
-                <img src="school.jpg" alt="School Image" style="width: fit; max-width: fit; border-radius: fit;">
+                <img src="school.jpg" alt="School Image" style="width: fit; max-width: fit; border-radius: fit;" loading="lazy">
+
             </div>
         </div>
     </section>
