@@ -323,9 +323,16 @@
     <footer>
         <p>&copy; Follow Me!</p>
     </footer>
+    <audio id="clickSound" src="monkey.mp3" preload="auto"></audio>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
+        // Add click sound to GIF
+        document.querySelector('.image-box img').addEventListener('click', function() {
+            document.getElementById('clickSound').play();
+        });
+
         const projectDescriptions = [
+
             "Point of Sale System - A complete retail management solution",
             "Banking Application - Secure online banking platform",
             "Project 3 - Description coming soon"
