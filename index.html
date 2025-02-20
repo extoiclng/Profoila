@@ -24,13 +24,13 @@
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            background-color: #000000; /* Black background */
-            color: #ffffff; /* White text */
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
         header {
-            background: #000000; /* Ensure header is black */
+            background: #000000;
             color: #ffffff;
             padding: 20px 0;
             text-align: center;
@@ -53,7 +53,7 @@
         }
 
         nav ul li a {
-            color: #ffffff; /* White text for tabs */
+            color: #ffffff;
             text-decoration: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -61,26 +61,26 @@
         }
 
         nav ul li a:hover {
-            background-color: #ff0000; /* Red background on hover */
+            background-color: #ff0000;
             color: #ffffff;
         }
 
         .tab-section {
             padding: 40px;
             margin: 20px;
-            background: #1a1a1a; /* Dark gray background for sections */
+            background: #1a1a1a;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            min-height: calc(100vh - 200px); /* Adjust height to fit the viewport */
-            display: none; /* Hide all sections by default */
-            transform-style: preserve-3d; /* Enable 3D transformations */
-            perspective: 1000px; /* Add perspective for 3D effect */
+            min-height: calc(100vh - 200px);
+            display: none;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         footer {
             text-align: center;
             padding: 20px 0;
-            background: #000000; /* Black background for footer */
+            background: #000000;
             color: #ffffff;
             position: relative;
             bottom: 0;
@@ -103,13 +103,13 @@
         .screenshot-box {
             position: relative;
             overflow: hidden;
-            width: 300px; /* Fixed width for the box */
-            height: 200px; /* Fixed height for the box */
+            width: 300px;
+            height: 200px;
         }
 
         .screenshot-box img {
-            width: 100%; /* Responsive */
-            height: auto; /* Maintain aspect ratio */
+            width: 100%;
+            height: auto;
             transition: opacity 0.5s ease;
         }
 
@@ -121,7 +121,7 @@
             display: flex;
             justify-content: space-between;
             transform: translateY(-50%);
-            opacity: 0.7; /* Subtle visibility */
+            opacity: 0.7;
         }
 
         .arrows button {
@@ -134,7 +134,7 @@
         }
 
         .arrows button:hover {
-            opacity: 1; /* More visible on hover */
+            opacity: 1;
         }
     </style>
 </head>
@@ -177,7 +177,6 @@
                     <img src="Screenshot 2024-05-21 210043.png" alt="Project 1"></a>
                 <a href="https://codehs.com/sandbox/id/protype-dtapO5" target="_blank" aria-label="Link to Image 2">
                     <img src="bank.png" alt="Project 2"></a>
-
             </div>
             <div class="arrows">
                 <button onclick="changeSlide(-1)" aria-label="Previous Slide"><&#10094;</button>
@@ -226,14 +225,15 @@
     </section>
 
     <section id="education" class="tab-section animate-on-scroll" data-aos="fade-up">
-        <h2>Education</h2>
-        <div class="education-container">
-            <div class="education-text">
+        <div class="education-container" style="display: flex; gap: 20px;">
+            <div class="education-text" style="flex: 1;">
                 <p class="dynamic-text">Technology High School in Newark, New Jersey, is a specialized magnet school focusing on STEM (Science, Technology, Engineering, and Mathematics) education. It offers rigorous academic programs designed to prepare students for careers in engineering, computer science, and other technology-related fields. The school emphasizes hands-on learning, problem-solving, and real-world applications of technology.</p>
                 <p class="dynamic-text">At Technology High School, I gained experience in programming, database management, and web development. I worked with Python, SQL, JavaScript, and Flask to develop applications, including projects like a Point of Sale (POS) system and an AI model that learns from feedback. Through AP courses and Advanced Programming for IT, I explored object classification, deep learning, and machine learning concepts. I also developed skills in UI/UX design, particularly in customizing Shopify storefronts with CSS and JavaScript.</p>
                 <p class="dynamic-text">Additionally, I worked on literary analysis for my AP English class, analyzing texts like Othello, Frankenstein, and Children of Blood and Bone. I also engaged in creative projects such as a DIDLS dialectical journal, a Where We Are photo essay, and various reflections on literature and personal growth.</p>
             </div>
-
+            <div class="education-image" style="flex: 1; background: #333; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+                <span style="color: #666;">Image Placeholder</span>
+            </div>
         </div>
     </section>
 
@@ -242,9 +242,7 @@
         <p>Details about my work experience.</p>
     </section>
     <section id="contact" class="tab-section animate-on-scroll" data-aos="fade-up">
-        <h2>Contact</h2>
-        <form id="contactForm" netlify>
-
+        <form id="contactForm" netlify style="max-width: 600px; margin: 0 auto;">
 
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
@@ -275,8 +273,6 @@
                         'Content-Type': 'application/json'
                     }
                 })
-
-
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -295,8 +291,6 @@
                 });
             });
         </script>
-
-
     </section>
     <footer>
         <p>&copy; Follow Me!</p>
@@ -308,7 +302,6 @@
             "Banking Application - Secure online banking platform",
             "Project 3 - Description coming soon"
         ];
-
 
         // Tab Navigation with 3D Animation
         document.addEventListener('DOMContentLoaded', () => {
@@ -373,10 +366,14 @@
         const images = document.querySelectorAll('.carousel-inner a');
         const totalImages = images.length;
 
-        
+        let currentTypeInterval = null;
+
         function changeSlide(step) {
-            // Clear current description
+            // Clear current description and any ongoing typing
             const descElement = document.getElementById('projectDesc');
+            if (currentTypeInterval) {
+                clearInterval(currentTypeInterval);
+            }
             descElement.textContent = '';
             
             // Change slide
@@ -386,16 +383,17 @@
             // Type new description
             let currentChar = 0;
             const description = projectDescriptions[index];
-            const typeInterval = setInterval(() => {
+            currentTypeInterval = setInterval(() => {
                 if (currentChar < description.length) {
                     descElement.textContent += description.charAt(currentChar);
                     currentChar++;
                 } else {
-                    clearInterval(typeInterval);
+                    clearInterval(currentTypeInterval);
+                    currentTypeInterval = null;
                 }
             }, 50);
-
         }
+
         
         // Initialize first description
         document.getElementById('projectDesc').textContent = projectDescriptions[0];
