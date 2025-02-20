@@ -14,10 +14,48 @@ document.querySelectorAll('.animate-on-scroll').forEach(element => {
     observer.observe(element);
 });
 
+// Enhanced tab switching with image reloading
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('nav ul li a');
+    const sections = document.querySelectorAll('.tab-section');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = tab.getAttribute('data-tab');
+
+            // Hide all sections
+            sections.forEach(section => {
+                section.style.display = 'none';
+                section.classList.remove('active');
+            });
+
+            // Show the selected section with 3D animation
+            const activeSection = document.getElementById(target);
+            activeSection.style.display = 'block';
+            activeSection.classList.add('active');
+
+            // Force reload images in the active section
+            const images = activeSection.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                if (img.complete && img.naturalHeight !== 0) {
+                    // Image is already loaded, no need to reload
+                    return;
+                }
+                const src = img.src;
+                img.src = '';
+                img.src = src;
+            });
+        });
+    });
+
+    // Initialize the first tab as active
+    document.querySelector('nav ul li a').click();
+});
+
 // Enhanced Typewriter effect with queue and callback
 let currentTypewriter;
 const typewriter = (element, text, speed = 50, erase = false, callback) => {
-    // Clear any existing typewriter
     if (currentTypewriter) {
         clearTimeout(currentTypewriter);
     }
@@ -47,37 +85,6 @@ const typewriter = (element, text, speed = 50, erase = false, callback) => {
     type();
 };
 
-// Project descriptions with highlighted keywords
-const projectDescriptions = [
-    {
-        text: "Point of Sale System - A complete retail management solution with barcode scanning and transaction management.",
-        keywords: ["Point of Sale", "barcode scanning", "transaction management"]
-    },
-    {
-        text: "Banking Application - Secure online banking platform with account management and transaction features.",
-        keywords: ["Banking Application", "account management", "transaction features"]
-    },
-    {
-        text: "AI Model - Machine learning model that learns from user feedback and improves over time.",
-        keywords: ["AI Model", "machine learning", "user feedback"]
-    }
-];
-
-// Highlight keywords in text
-const highlightKeywords = (text, keywords) => {
-    keywords.forEach(keyword => {
-        text = text.replace(new RegExp(keyword, 'g'), `<span class="highlight">${keyword}</span>`);
-    });
-    return text;
-};
-
-
-
-// Optimized carousel functionality
-let carouselTimeout;
-const CAROUSEL_TRANSITION_SPEED = 300; // milliseconds
-
-
 // Initialize typewriter effects
 const dynamicText = document.querySelector('.dynamic-text');
 if (dynamicText) {
@@ -86,17 +93,10 @@ if (dynamicText) {
     typewriter(dynamicText, text);
 }
 
-// Initialize project descriptions
-const projectDescElement = document.getElementById('projectDesc');
-if (projectDescElement) {
-    projectDescElement.textContent = '';
-    typewriter(projectDescElement, projectDescriptions[0].text, 50, false, () => {
-        projectDescElement.innerHTML = highlightKeywords(projectDescriptions[0].text, projectDescriptions[0].keywords);
-    });
-}
+// Optimized carousel functionality
+let carouselTimeout;
+const CAROUSEL_TRANSITION_SPEED = 300;
 
-
-// Optimize carousel transitions
 document.querySelectorAll('.carousel-inner').forEach(carousel => {
     carousel.style.transition = `transform ${CAROUSEL_TRANSITION_SPEED}ms ease-in-out`;
 });
