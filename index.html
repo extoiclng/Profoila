@@ -177,8 +177,7 @@
                     <img src="Screenshot 2024-05-21 210043.png" alt="Project 1"></a>
                 <a href="https://codehs.com/sandbox/id/protype-dtapO5" target="_blank" aria-label="Link to Image 2">
                     <img src="bank.png" alt="Project 2"></a>
-                <a href="#" target="_blank" aria-label="Link to Image 3">
-                    <img src="project3.jpg" alt="Project 3"></a>
+
             </div>
             <div class="arrows">
                 <button onclick="changeSlide(-1)" aria-label="Previous Slide"><&#10094;</button>
@@ -234,9 +233,7 @@
                 <p class="dynamic-text">At Technology High School, I gained experience in programming, database management, and web development. I worked with Python, SQL, JavaScript, and Flask to develop applications, including projects like a Point of Sale (POS) system and an AI model that learns from feedback. Through AP courses and Advanced Programming for IT, I explored object classification, deep learning, and machine learning concepts. I also developed skills in UI/UX design, particularly in customizing Shopify storefronts with CSS and JavaScript.</p>
                 <p class="dynamic-text">Additionally, I worked on literary analysis for my AP English class, analyzing texts like Othello, Frankenstein, and Children of Blood and Bone. I also engaged in creative projects such as a DIDLS dialectical journal, a Where We Are photo essay, and various reflections on literature and personal growth.</p>
             </div>
-            <div class="education-image">
-                <img src="education.jpg" alt="Technology High School">
-            </div>
+
         </div>
     </section>
 
@@ -305,9 +302,13 @@
         <p>&copy; Follow Me!</p>
     </footer>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="animations.js"></script>
-    <script type="module">
-        import { projectDescriptions } from './animations.js';
+    <script>
+        const projectDescriptions = [
+            "Point of Sale System - A complete retail management solution",
+            "Banking Application - Secure online banking platform",
+            "Project 3 - Description coming soon"
+        ];
+
 
         // Tab Navigation with 3D Animation
         document.addEventListener('DOMContentLoaded', () => {
