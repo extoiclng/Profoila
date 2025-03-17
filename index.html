@@ -142,9 +142,272 @@
         .glow-text {
             text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff, 0 0 40px #ffffff, 0 0 50px #ffffff;
         }
+
+        .professional-summary {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .professional-summary h3 {
+            margin-top: 0;
+        }
+
+        .professional-summary p {
+            margin-bottom: 20px;
+        }
+
+        .professional-summary .call-to-action {
+            background-color: #ff0000;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .professional-summary .call-to-action:hover {
+            background-color: #ff3333;
+        }
+
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .project-modal .modal-content {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .project-modal .modal-header {
+            margin-top: 0;
+        }
+
+        .project-modal .modal-body {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .project-modal .modal-image {
+            width: 50%;
+            margin: 20px;
+        }
+
+        .project-modal .modal-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .project-modal .modal-details {
+            width: 50%;
+            margin: 20px;
+        }
+
+        .project-modal .modal-details h3 {
+            margin-top: 0;
+        }
+
+        .project-modal .modal-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .project-modal .modal-details li {
+            margin-bottom: 10px;
+        }
+
+        .project-modal .modal-details .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .project-modal .modal-details .tech-badge {
+            background-color: #ff0000;
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .project-modal .modal-details .project-links {
+            margin-top: 20px;
+        }
+
+        .project-modal .modal-details .project-links a {
+            background-color: #ff0000;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .project-modal .modal-details .project-links a:hover {
+            background-color: #ff3333;
+        }
+
+        .project-modal .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .project-modal .modal-close:hover {
+            background-color: #ff3333;
+        }
+
+        .skill-progress {
+            margin-bottom: 20px;
+        }
+
+        .skill-progress .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .skill-progress .skill-bar {
+            background-color: #444;
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .skill-progress .skill-progress-value {
+            background-color: #ff0000;
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .testimonial-card {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card .testimonial-text {
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-card .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .testimonial-card .testimonial-author .author-info {
+            margin-left: 10px;
+        }
+
+        .testimonial-card .testimonial-author .author-info h4 {
+            margin-top: 0;
+        }
+        
+        /* Animated Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            opacity: 0.5;
+            animation: float 3s infinite;
+        }
+        
+        .particle:nth-child(1) {
+            top: 20%;
+            left: 30%;
+            animation-delay: 0.5s;
+        }
+        
+        .particle:nth-child(2) {
+            top: 40%;
+            left: 50%;
+            animation-delay: 1s;
+        }
+        
+        .particle:nth-child(3) {
+            top: 60%;
+            left: 20%;
+            animation-delay: 1.5s;
+        }
+        
+        .particle:nth-child(4) {
+            top: 80%;
+            left: 60%;
+            animation-delay: 2s;
+        }
+        
+        .particle:nth-child(5) {
+            top: 30%;
+            left: 40%;
+            animation-delay: 2.5s;
+        }
+        
+        .particle:nth-child(6) {
+            top: 50%;
+            left: 10%;
+            animation-delay: 3s;
+        }
+        
+        .particle:nth-child(7) {
+            top: 70%;
+            left: 80%;
+            animation-delay: 3.5s;
+        }
     </style>
 </head>
 <body>
+    <!-- Animated Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
     <header>
         <nav>
             <ul>
@@ -158,33 +421,44 @@
     </header>
     <section id="home" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2 class="section-title glow-text">Home</h2>
-        <p>This is a brief introduction about myself. Information about myself goes here.</p>
+        
+        <div class="professional-summary">
+            <h3>Professional Summary</h3>
+            <p>I am a <span class="highlight">passionate web developer</span> with expertise in creating responsive, user-friendly websites and applications. Leveraging my strong foundation in <span class="highlight">HTML, CSS, JavaScript</span>, and modern frameworks, I craft dynamic digital experiences that engage users and deliver business results.</p>
+            <p>My approach combines <span class="highlight">technical precision</span> with <span class="highlight">creative problem-solving</span> to develop elegant solutions for complex challenges. I thrive in collaborative environments and am committed to continuous learning in this ever-evolving field.</p>
+            <a href="#contact" class="call-to-action">Hire Me</a>
+            <a href="#" class="resume-button"><i class="fas fa-file-pdf"></i> Download Resume</a>
+        </div>
+        
         <div class="animated-label">
             <span class="greeting glow-text">I'm a </span><span class="dynamic-text"></span>
         </div>
         <div class="social-links" data-aos="fade-up" data-aos-duration="1500">
             <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://github.com/extoiclng" target="_blank"><i class="fa-brands fa-github"></i></a>
             <a href="https://www.linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
         </div>
         <div style="float: right; width: 50%; padding: 20px;">
             <div class="image-box" style="width: 100%; max-width: 600px; animation: float 3s ease-in-out infinite;">
-                <img src="Happy Pixel GIF by SMOL.gif" alt="Developer Animation" style="width: 100%; border-radius: 15px;" loading="lazy">
-
+                <img id="monkeyGif" src="Happy Pixel GIF by SMOL.gif" alt="Developer Animation" style="width: 100%; border-radius: 15px;" loading="lazy">
             </div>
         </div>
     </section>
     <section id="projects" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2 class="section-title glow-text">Projects</h2>
-        <p>Showcase of my work will be displayed here.</p>
+        <p>Here are some selected projects that showcase my skills and experience:</p>
+        
         <div class="carousel" role="region" aria-label="Image Carousel">
             <div class="carousel-inner">
-                <a href="https://github.com/extoiclng/Point-of-Sale-POS-System" target="_blank" aria-label="">
-                    <img src="tech.png" alt="Project 1" loading="lazy"></a>
+                <a href="#" data-modal-target="0" aria-label="Point of Sale System">
+                    <img src="tech.png" alt="Project 1">
+                </a>
 
-                <a href="https://codehs.com/sandbox/id/protype-dtapO5" target="_blank" aria-label="Link to Image 2">
-                    <img src="bank.png" alt="Project 2" loading="lazy"></a>
-
+                <a href="#" data-modal-target="1" aria-label="Banking Application">
+                    <img src="bank.png" alt="Project 2">
+                </a>
             </div>
             <div class="arrows">
                 <button onclick="changeSlide(-1)" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
@@ -198,68 +472,191 @@
         <div class="project-description">
             <p id="projectDesc" class="typewriter"></p>
         </div>
+        
+        <!-- Project Modals -->
+        <div class="project-modal" id="projectModal0">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeProjectModal(0)"><i class="fas fa-times"></i></button>
+                <div class="modal-header">
+                    <h2>Point of Sale System</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-image">
+                        <img src="tech.png" alt="Point of Sale System">
+                    </div>
+                    <div class="modal-details">
+                        <h3>Project Overview</h3>
+                        <p>A comprehensive Point of Sale system built with modern technologies, featuring inventory management, sales tracking, and customer management capabilities. This application streamlines retail operations and provides valuable business analytics.</p>
+                        
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>Intuitive dashboard with real-time sales metrics</li>
+                            <li>Inventory management with automatic stock alerts</li>
+                            <li>Customer relationship management integration</li>
+                            <li>Secure payment processing with multiple options</li>
+                            <li>Customizable reporting and analytics</li>
+                        </ul>
+                        
+                        <h3>Technologies Used</h3>
+                        <div class="tech-stack">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">Node.js</span>
+                            <span class="tech-badge">Express</span>
+                            <span class="tech-badge">MongoDB</span>
+                        </div>
+                        
+                        <div class="project-links">
+                            <a href="https://github.com/extoiclng/Point-of-Sale-POS-System" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <a href="#" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-modal" id="projectModal1">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeProjectModal(1)"><i class="fas fa-times"></i></button>
+                <div class="modal-header">
+                    <h2>Banking Application</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-image">
+                        <img src="bank.png" alt="Banking Application">
+                    </div>
+                    <div class="modal-details">
+                        <h3>Project Overview</h3>
+                        <p>A secure banking application prototype with robust authentication and transaction processing capabilities. This platform offers users a seamless digital banking experience with comprehensive financial management tools.</p>
+                        
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>Multi-factor authentication for enhanced security</li>
+                            <li>Real-time transaction monitoring and alerts</li>
+                            <li>Bill payment and recurring transfer scheduling</li>
+                            <li>Financial goal setting and progress tracking</li>
+                            <li>Expense categorization and budgeting tools</li>
+                        </ul>
+                        
+                        <h3>Technologies Used</h3>
+                        <div class="tech-stack">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">React</span>
+                            <span class="tech-badge">Firebase</span>
+                            <span class="tech-badge">Node.js</span>
+                        </div>
+                        
+                        <div class="project-links">
+                            <a href="https://codehs.com/sandbox/id/protype-dtapO5" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <a href="#" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-
     <section id="skills" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2 class="section-title glow-text">Skills</h2>
+        
+        <!-- Skill progress bars -->
+        <div class="skills-container">
+            <div class="skill-progress">
+                <div class="skill-header">
+                    <h4>HTML5 & CSS3</h4>
+                    <span>95%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress-value" style="width: 95%"></div>
+                </div>
+            </div>
+            
+            <div class="skill-progress">
+                <div class="skill-header">
+                    <h4>JavaScript</h4>
+                    <span>90%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress-value" style="width: 90%"></div>
+                </div>
+            </div>
+            
+            <div class="skill-progress">
+                <div class="skill-header">
+                    <h4>React & Angular</h4>
+                    <span>85%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress-value" style="width: 85%"></div>
+                </div>
+            </div>
+            
+            <div class="skill-progress">
+                <div class="skill-header">
+                    <h4>Node.js & Express</h4>
+                    <span>80%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress-value" style="width: 80%"></div>
+                </div>
+            </div>
+            
+            <div class="skill-progress">
+                <div class="skill-header">
+                    <h4>UI/UX Design</h4>
+                    <span>75%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress-value" style="width: 75%"></div>
+                </div>
+            </div>
+        </div>
+        
         <div class="skills-container">
             <div class="skill-item">
                 <i class="fa-brands fa-html5"></i>
                 <span>HTML</span>
-                <div class="skill-timeline">2023-Present</div>
-                <div class="skill-description">
-                    <span class="typewriter">Used for structuring web pages and creating semantic markup</span>
-                </div>
             </div>
-
             <div class="skill-item">
                 <i class="fa-brands fa-css3-alt"></i>
                 <span>CSS</span>
-                <div class="skill-timeline">2023-Present</div>
-                <div class="skill-description">
-                    <span class="typewriter">Customized Shopify themes for your clothing brand, Techware</span>
-                </div>
             </div>
-
             <div class="skill-item">
-                <i class="fa-brands fa-js"></i>
+                <i class="fa-brands fa-square-js"></i>
                 <span>JavaScript</span>
-                <div class="skill-timeline">2023-Present</div>
-                <div class="skill-description">
-                    <span class="typewriter">Learned in AP Computer Science, likely with web development concepts</span>
-                </div>
             </div>
-
             <div class="skill-item">
-                <i class="fa-brands fa-java"></i>
-                <span>Java</span>
-                <div class="skill-timeline">2023-Present</div>
-                <div class="skill-description">
-                    <span class="typewriter">Used for object-oriented programming and application development</span>
-                </div>
+                <i class="fa-brands fa-react"></i>
+                <span>React</span>
             </div>
-
             <div class="skill-item">
-                <i class="fa-solid fa-database"></i>
-                <span>SQL</span>
-                <div class="skill-timeline">2023-Present</div>
-                <div class="skill-description">
-                    <span class="typewriter">Used in database normalization, query writing, and ERD design</span>
-                </div>
+                <i class="fa-brands fa-angular"></i>
+                <span>Angular</span>
             </div>
-
             <div class="skill-item">
-                <i class="fa-brands fa-python"></i>
-                <span>Python</span>
-                <div class="skill-timeline">2023-Present</div>
-                <div class="skill-description">
-                    <span class="typewriter">Used for AI/ML (TensorFlow), database management, and projects like PocketPal (banking app) and a POS system</span>
-                </div>
+                <i class="fa-brands fa-node-js"></i>
+                <span>Node.js</span>
             </div>
-
+            <div class="skill-item">
+                <i class="fa-brands fa-git-alt"></i>
+                <span>Git</span>
+            </div>
+            <div class="skill-item">
+                <i class="fa-brands fa-sass"></i>
+                <span>Sass</span>
+            </div>
         </div>
     </section>
-
     <section id="education" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2 class="section-title glow-text">Education</h2>
         <div class="education-container" style="display: flex; gap: 20px;">
@@ -268,66 +665,53 @@
                 <p class="dynamic-text">At Technology High School, I gained experience in programming, database management, and web development. I worked with Python, SQL, JavaScript, and Flask to develop applications, including projects like a Point of Sale (POS) system and an AI model that learns from feedback. Through AP courses and Advanced Programming for IT, I explored object classification, deep learning, and machine learning concepts. I also developed skills in UI/UX design, particularly in customizing Shopify storefronts with CSS and JavaScript.</p>
                 <p class="dynamic-text">Additionally, I worked on literary analysis for my AP English class, analyzing texts like Othello, Frankenstein, and Children of Blood and Bone. I also engaged in creative projects such as a DIDLS dialectical journal, a Where We Are photo essay, and various reflections on literature and personal growth.</p>
             </div>
+            
             <div class="education-image" style="flex: 1; background: #333; min-height: 300px; display: flex; align-items: center; justify-content: center;">
                 <span style="color: #666;"></span>
-                <img src="school.jpg" alt="School Image" style="width: fit; max-width: fit; border-radius: fit;" loading="lazy">
-
+                <img src="school.jpg" alt="School Image" style="width: 100%; max-width: 100%; border-radius: 10px;" loading="lazy">
             </div>
         </div>
     </section>
-
-
     <section id="contact" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2 class="section-title glow-text">Contact Me</h2>
+        
+        <!-- Testimonials -->
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Jesús is an exceptional developer who consistently delivers high-quality work. His attention to detail and problem-solving abilities make him stand out from his peers. I would gladly work with him again on future projects."</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Davis">
+                    <div class="author-info">
+                        <h4>John Davis</h4>
+                        <p>Senior Project Manager</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Working with Jesús was a pleasure. He not only delivered the technical requirements but also provided valuable insights that improved our project. His communication skills and professionalism are top-notch."</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Wilson">
+                    <div class="author-info">
+                        <h4>Sarah Wilson</h4>
+                        <p>UX Design Lead</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <form id="contactForm" netlify style="max-width: 600px; margin: 0 auto;">
-
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
+            
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
+            
             <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
-            <button type="submit">Send</button>
-            <div id="formMessage" style="margin-top: 20px;"></div>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            
+            <button type="submit" class="call-to-action">Send Message</button>
         </form>
-        <script>
-            document.getElementById('contactForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const formData = new FormData(this);
-                const formMessage = document.getElementById('formMessage');
-                formMessage.textContent = 'Sending message...';
-                formMessage.style.color = '#000';
-
-                fetch('/.netlify/functions/send-email', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        name: formData.get('name'),
-                        email: formData.get('email'),
-                        message: formData.get('message')
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        formMessage.textContent = 'Message sent successfully!';
-                        formMessage.style.color = 'green';
-                        document.getElementById('contactForm').reset();
-                    } else {
-                        formMessage.textContent = 'Error sending message. Please try again.';
-                        formMessage.style.color = 'red';
-                    }
-                })
-                .catch(error => {
-                    formMessage.textContent = 'An error occurred. Please try again later.';
-                    formMessage.style.color = 'red';
-                    console.error('Error:', error);
-                });
-            });
-        </script>
     </section>
     <footer>
         <p>&copy; Follow Me!</p>
@@ -337,7 +721,7 @@
     <script defer src="animations.js"></script>
     <script>
         // Add click sound to GIF
-        document.querySelector('.image-box img').addEventListener('click', function() {
+        document.getElementById('monkeyGif').addEventListener('click', function() {
             document.getElementById('clickSound').play();
         });
 
@@ -442,6 +826,27 @@
         document.getElementById('projectDesc').textContent = projectDescriptions[0];
 
         AOS.init({ offset: 0 });
+        
+        // Project Modal Functionality
+        function openProjectModal(index) {
+            const modal = document.getElementById(`projectModal${index}`);
+            modal.style.display = 'block';
+        }
+
+        function closeProjectModal(index) {
+            const modal = document.getElementById(`projectModal${index}`);
+            modal.style.display = 'none';
+        }
+
+        // Carousel links event listener
+        const carouselLinks = document.querySelectorAll('.carousel-inner a');
+        carouselLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const modalTarget = link.getAttribute('data-modal-target');
+                openProjectModal(modalTarget);
+            });
+        });
     </script>
 </body>
 </html>

@@ -49,101 +49,143 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(style);
-
+    
+    // Set Home as initial active tab
+    const initialTab = document.querySelector('nav ul li a[data-tab="home"]');
+    if (initialTab) {
+        initialTab.classList.add('active-tab');
+        const homeSection = document.getElementById('home');
+        if (homeSection) {
+            homeSection.classList.add('active');
+            homeSection.style.display = 'block';
+            homeSection.style.opacity = '1';
+            homeSection.style.transform = 'translateY(0) rotateX(0deg)';
+            currentActive = 'home';
+            
+            // Preload images in the home section
+            preloadImagesInSection(homeSection);
+        }
+    }
+    
+    // Tab click event with improved error handling
     tabs.forEach(tab => {
-        tab.addEventListener('click', (e) => {
+        tab.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Prevent animation if already in progress
-            if (isAnimating) return;
+            if (isAnimating) return; // Prevent clicking during animation
             
-            const target = tab.getAttribute('data-tab');
+            const tabId = this.getAttribute('data-tab');
+            if (!tabId) return;
             
-            // If clicking the same tab, do nothing
-            if (currentActive && currentActive.id === target) return;
+            // Skip if clicking the current active tab
+            if (currentActive === tabId) return;
             
             // Remove active class from all tabs
             tabs.forEach(t => t.classList.remove('active-tab'));
             
             // Add active class to current tab
-            tab.classList.add('active-tab');
+            this.classList.add('active-tab');
             
-            if (currentActive) {
-                // Set animating flag
-                isAnimating = true;
-                
-                // Animate current section out
-                currentActive.classList.add('slide-out');
-                
-                // Use the exact animation duration from our CSS
-                setTimeout(() => {
-                    currentActive.style.display = 'none';
-                    currentActive.classList.remove('active', 'slide-out');
-                    
-                    // Animate new section in
-                    const activeSection = document.getElementById(target);
-                    activeSection.style.display = 'block';
-                    
-                    // Force all images to load immediately
-                    preloadImagesInSection(activeSection);
-                    
-                    setTimeout(() => {
-                        activeSection.classList.add('active', 'slide-in');
-                        currentActive = activeSection;
-                        
-                        // Remove slide-in class after animation completes
-                        setTimeout(() => {
-                            activeSection.classList.remove('slide-in');
-                            isAnimating = false; // Reset animation flag
-                        }, 1200); // Match the CSS animation duration
-                    }, 50);
-                }, 1200); // Match the CSS animation duration
-            } else {
-                // First load - no animation needed
-                const activeSection = document.getElementById(target);
-                activeSection.style.display = 'block';
-                preloadImagesInSection(activeSection);
-                
-                setTimeout(() => {
-                    activeSection.classList.add('active');
-                    currentActive = activeSection;
-                }, 50);
-            }
+            // Switch tab content with animation
+            switchTab(tabId);
         });
     });
+});
 
-    // Pre-load images function
-    function preloadImagesInSection(section) {
-        const images = section.querySelectorAll('img');
-        images.forEach(img => {
-            // Remove lazy loading for visible sections
-            if (img.hasAttribute('loading')) {
-                img.removeAttribute('loading');
+// Enhanced tab transition with 3D effect
+function switchTab(tabId) {
+    if (!tabId) return;
+    
+    const sections = document.querySelectorAll('.tab-section');
+    const targetSection = document.getElementById(tabId);
+    
+    if (!targetSection) {
+        console.error(`Target section with ID '${tabId}' not found`);
+        return;
+    }
+    
+    isAnimating = true;
+    
+    // Get current active section
+    const currentSection = document.querySelector('.tab-section.active');
+    
+    if (currentSection) {
+        // Animate current section out
+        currentSection.style.transform = 'translateY(-20px) rotateX(-10deg)';
+        currentSection.style.opacity = '0';
+        
+        setTimeout(() => {
+            currentSection.style.display = 'none';
+            currentSection.classList.remove('active');
+            
+            // Animate new section in
+            targetSection.style.display = 'block';
+            targetSection.classList.add('active');
+            
+            // Trigger a reflow
+            void targetSection.offsetWidth;
+            
+            targetSection.style.opacity = '1';
+            targetSection.style.transform = 'translateY(0) rotateX(0deg)';
+            
+            // Preload images in the target section
+            preloadImagesInSection(targetSection);
+            
+            // Start skill bar animations if skills tab
+            if (tabId === 'skills') {
+                setTimeout(animateSkillBars, 500);
             }
             
-            // Force reload by setting src again
-            const src = img.getAttribute('src');
-            if (src) {
-                // Create a new image to preload
-                const preloadImg = new Image();
-                preloadImg.onload = function() {
-                    // Once preloaded, update the original img
-                    img.src = src;
-                    // Add fade-in effect
-                    img.style.opacity = '0';
-                    img.style.transition = 'opacity 0.5s ease';
-                    setTimeout(() => {
-                        img.style.opacity = '1';
-                    }, 100);
-                };
-                preloadImg.src = src;
-            }
-        });
+            currentActive = tabId;
+            
+            // Reset animation flag after animation completes
+            setTimeout(() => {
+                isAnimating = false;
+            }, 800);
+        }, 600);
+    } else {
+        // If no current section (first load), just show the target
+        targetSection.style.display = 'block';
+        targetSection.classList.add('active');
+        targetSection.style.opacity = '1';
+        targetSection.style.transform = 'translateY(0) rotateX(0deg)';
+        
+        // Preload images in the target section
+        preloadImagesInSection(targetSection);
+        
+        currentActive = tabId;
+        isAnimating = false;
     }
+}
 
-    // Initialize the first tab as active
-    document.querySelector('nav ul li a').click();
-});
+// Pre-load images function
+function preloadImagesInSection(section) {
+    const images = section.querySelectorAll('img');
+    images.forEach(img => {
+        // Remove lazy loading for visible sections
+        if (img.hasAttribute('loading')) {
+            img.removeAttribute('loading');
+        }
+        
+        // Force reload by setting src again
+        const src = img.getAttribute('src');
+        if (src) {
+            // Create a new image to preload
+            const preloadImg = new Image();
+            preloadImg.onload = function() {
+                // Once preloaded, update the original img
+                img.src = src;
+                // Add fade-in effect
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    img.style.opacity = '1';
+                }, 100);
+            };
+            preloadImg.src = src;
+        }
+    });
+}
 
 // Enhanced Typewriter effect with improved mechanics
 // This fixes the issue where the typewriter would go farther than the text
@@ -267,28 +309,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Project descriptions typewriter
-    const projectDesc = document.getElementById('projectDesc');
-    if (projectDesc) {
-        const descriptions = [
-            'A Point of Sale system built with modern technologies. Features include inventory management, sales tracking, and customer management.',
-            'A banking application prototype with secure authentication and transaction processing capabilities.'
-        ];
-        projectDesc.textContent = ''; // Clear existing text
-        
-        new Typewriter(projectDesc, [descriptions[0]], {
-            typeSpeed: 50,
-            deleteSpeed: 30,
-            pauseBeforeDelete: 4000,
-            pauseBeforeType: 1000,
-            loop: false // Don't loop for project descriptions
-        });
-    }
+    // Project descriptions typewriter - initialize with first description
+    initProjectDescriptionTypewriter(0);
 });
+
+// Initialize project description typewriter with the specified index
+function initProjectDescriptionTypewriter(index) {
+    const projectDesc = document.getElementById('projectDesc');
+    if (!projectDesc) return;
+    
+    const projectDescriptions = [
+        'A Point of Sale system built with modern technologies. Features include inventory management, sales tracking, and customer management.',
+        'A banking application prototype with secure authentication and transaction processing capabilities.'
+    ];
+    
+    // Clear existing typewriter instance if it exists
+    if (projectDesc._typewriterInstance) {
+        projectDesc._typewriterInstance.destroy();
+    }
+    
+    // Clear existing text
+    projectDesc.textContent = '';
+    projectDesc.style.opacity = '1';
+    
+    // Create new typewriter with current description
+    const description = index < projectDescriptions.length ? projectDescriptions[index] : projectDescriptions[0];
+    new Typewriter(projectDesc, [description], {
+        typeSpeed: 40,
+        deleteSpeed: 30,
+        pauseBeforeDelete: 5000,
+        pauseBeforeType: 500,
+        loop: false // Don't loop for project descriptions
+    });
+}
 
 // Optimized carousel functionality with smooth transitions and synchronized text
 let currentSlide = 0;
 const CAROUSEL_TRANSITION_SPEED = 400;
+const projectDescriptions = [
+    'A Point of Sale system built with modern technologies. Features include inventory management, sales tracking, and customer management.',
+    'A banking application prototype with secure authentication and transaction processing capabilities.'
+];
 
 function changeSlide(step) {
     const carousel = document.querySelector('.carousel-inner');
@@ -305,28 +366,13 @@ function changeSlide(step) {
     carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
     
     // Update the project description text to match the current slide
-    const descriptions = [
-        'A Point of Sale system built with modern technologies. Features include inventory management, sales tracking, and customer management.',
-        'A banking application prototype with secure authentication and transaction processing capabilities.'
-    ];
-    
-    // Fade out the text
     if (projectDesc) {
+        // Fade out the text
         projectDesc.style.opacity = '0';
+        
+        // After transition completes, update the typewriter
         setTimeout(() => {
-            // Update text content and reset typewriter
-            if (currentSlide < descriptions.length) {
-                // Clear existing text and create new typewriter with current description
-                projectDesc.textContent = '';
-                new Typewriter(projectDesc, [descriptions[currentSlide]], {
-                    typeSpeed: 30,
-                    deleteSpeed: 20,
-                    pauseBeforeDelete: 4000,
-                    pauseBeforeType: 500,
-                    loop: false
-                });
-            }
-            projectDesc.style.opacity = '1';
+            initProjectDescriptionTypewriter(currentSlide);
         }, 300);
     }
     
@@ -346,7 +392,6 @@ function changeSlide(step) {
 // Function to go to a specific slide when clicking on indicators
 function goToSlide(slideIndex) {
     const carousel = document.querySelector('.carousel-inner');
-    const projectDesc = document.getElementById('projectDesc');
     const slides = carousel.querySelectorAll('a');
     
     if (!carousel || slides.length === 0 || slideIndex < 0 || slideIndex >= slides.length) return;
@@ -358,38 +403,133 @@ function goToSlide(slideIndex) {
     carousel.style.transition = `transform ${CAROUSEL_TRANSITION_SPEED}ms cubic-bezier(0.175, 0.885, 0.32, 1.275)`;
     carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
     
-    // Update indicators
-    const indicators = document.querySelectorAll('.carousel-indicator');
-    indicators.forEach((indicator, index) => {
-        if (index === currentSlide) {
-            indicator.classList.add('active');
-        } else {
-            indicator.classList.remove('active');
-        }
-    });
-    
-    // Update the project description text
-    const descriptions = [
-        'A Point of Sale system built with modern technologies. Features include inventory management, sales tracking, and customer management.',
-        'A banking application prototype with secure authentication and transaction processing capabilities.'
-    ];
-    
-    // Fade out the text
-    if (projectDesc && currentSlide < descriptions.length) {
+    // Update project description with typewriter effect
+    const projectDesc = document.getElementById('projectDesc');
+    if (projectDesc) {
         projectDesc.style.opacity = '0';
         setTimeout(() => {
-            // Update text content and reset typewriter
-            projectDesc.textContent = '';
-            new Typewriter(projectDesc, [descriptions[currentSlide]], {
-                typeSpeed: 30,
-                deleteSpeed: 20,
-                pauseBeforeDelete: 4000,
-                pauseBeforeType: 500,
-                loop: false
-            });
-            projectDesc.style.opacity = '1';
+            initProjectDescriptionTypewriter(currentSlide);
         }, 300);
     }
+    
+    // Update indicators
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    if (indicators.length) {
+        indicators.forEach((indicator, index) => {
+            if (index === currentSlide) {
+                indicator.classList.add('active');
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+    }
+}
+
+// Initialize all animations and effects
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize existing functionality
+    initTypewriterEffects();
+    animateSkillBars();
+    addCardEffects();
+    
+    // Initialize project description for the first slide
+    initProjectDescriptionTypewriter(0);
+    
+    // Make sure carousel is initialized properly
+    const carousel = document.querySelector('.carousel-inner');
+    if (carousel) {
+        carousel.style.transform = 'translateX(0)';
+    }
+    
+    // Update carousel indicators
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    if (indicators.length > 0) {
+        indicators[0].classList.add('active');
+    }
+    
+    // Fix click events on project images
+    const projectImages = document.querySelectorAll('.carousel-inner a');
+    projectImages.forEach((link, index) => {
+        // Remove inline onclick attribute to avoid conflicts
+        link.removeAttribute('onclick');
+        
+        // Add clean event listener
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            openProjectModal(index);
+        });
+    });
+});
+
+// Project modal functionality
+function openProjectModal(index) {
+    const modal = document.getElementById(`projectModal${index}`);
+    if (!modal) return;
+    
+    modal.style.display = 'block';
+    modal.style.opacity = '0';
+    
+    // Apply entrance animation
+    setTimeout(() => {
+        modal.style.transition = 'opacity 0.3s ease';
+        modal.style.opacity = '1';
+        
+        const modalContent = modal.querySelector('.modal-content');
+        modalContent.style.transform = 'translateY(0)';
+        modalContent.style.opacity = '1';
+    }, 10);
+    
+    // Clean up existing event listeners to prevent duplicates
+    const existingModalClickHandler = modal._modalClickHandler;
+    if (existingModalClickHandler) {
+        modal.removeEventListener('click', existingModalClickHandler);
+    }
+    
+    // Assign new click handler to close when clicking outside
+    modal._modalClickHandler = function(e) {
+        if (e.target === modal) {
+            closeProjectModal(index);
+        }
+    };
+    modal.addEventListener('click', modal._modalClickHandler);
+    
+    // Clean up existing key handler
+    if (window._modalKeyHandler) {
+        document.removeEventListener('keydown', window._modalKeyHandler);
+    }
+    
+    // Assign new key handler
+    window._modalKeyHandler = function(e) {
+        if (e.key === 'Escape') {
+            closeProjectModal(index);
+        }
+    };
+    document.addEventListener('keydown', window._modalKeyHandler);
+}
+
+function closeProjectModal(index) {
+    const modal = document.getElementById(`projectModal${index}`);
+    if (!modal) return;
+    
+    const modalContent = modal.querySelector('.modal-content');
+    modalContent.style.transform = 'translateY(20px)';
+    modalContent.style.opacity = '0';
+    
+    setTimeout(() => {
+        modal.style.opacity = '0';
+        setTimeout(() => {
+            modal.style.display = 'none';
+            
+            // Clean up event listeners
+            if (modal._modalClickHandler) {
+                modal.removeEventListener('click', modal._modalClickHandler);
+            }
+            if (window._modalKeyHandler) {
+                document.removeEventListener('keydown', window._modalKeyHandler);
+            }
+        }, 300);
+    }, 200);
 }
 
 // Add 3D transform hover effects to elements
@@ -455,3 +595,81 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Animation for skill progress bars
+function animateSkillBars() {
+    const skillBars = document.querySelectorAll('.skill-progress-value');
+    
+    skillBars.forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0';
+        
+        setTimeout(() => {
+            bar.style.transition = 'width 1.5s ease-in-out';
+            bar.style.width = width;
+        }, 300);
+    });
+}
+
+// Add 3D transform effect to cards
+function addCardEffects() {
+    const cards = document.querySelectorAll('.testimonial-card, .professional-summary');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', handleCardHover);
+        card.addEventListener('mouseleave', resetCard);
+    });
+}
+
+function handleCardHover(e) {
+    const card = this;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateY = (x - centerX) / 15;
+    const rotateX = (centerY - y) / 15;
+    
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    card.style.transition = 'transform 0.1s ease';
+    
+    // Add shine effect
+    const shine = card.querySelector('.shine') || document.createElement('div');
+    if (!card.querySelector('.shine')) {
+        shine.classList.add('shine');
+        card.appendChild(shine);
+    }
+    
+    const shineX = (x / rect.width) * 100;
+    const shineY = (y / rect.height) * 100;
+    shine.style.background = `radial-gradient(circle at ${shineX}% ${shineY}%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%)`;
+}
+
+function resetCard() {
+    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+    this.style.transition = 'transform 0.5s ease';
+    
+    const shine = this.querySelector('.shine');
+    if (shine) {
+        shine.style.background = 'none';
+    }
+}
+
+// When scrolling, check if skill section is visible
+window.addEventListener('scroll', function() {
+    const skillsSection = document.getElementById('skills');
+    if (skillsSection && isElementInViewport(skillsSection)) {
+        animateSkillBars();
+    }
+});
+
+function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.bottom >= 0
+    );
+}
