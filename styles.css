@@ -51,7 +51,7 @@ body::before {
     height: 5px;
     background: rgba(79, 172, 254, 0.5);
     border-radius: 50%;
-    animation: float 15s infinite ease-in-out;
+    animation: float 25s infinite ease-in-out;
 }
 
 .particle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
@@ -64,7 +64,7 @@ body::before {
 
 @keyframes float {
     0% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(5deg); }
+    50% { transform: translateY(-10px) rotate(3deg); }
     100% { transform: translateY(0) rotate(0deg); }
 }
 
@@ -174,14 +174,16 @@ nav ul li a:hover {
     background-color: rgba(79, 172, 254, 0.1);
     color: #4facfe;
     transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.2);
 }
 
 nav ul li a:hover::before {
     width: 100%;
+    background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
 }
 
 .tab-section {
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    background: linear-gradient(to bottom, rgba(15, 12, 41, 0.95), rgba(48, 43, 99, 0.95), rgba(36, 36, 62, 0.95));
     border-radius: 15px;
     padding: 30px;
     margin-bottom: 30px;
@@ -194,79 +196,40 @@ nav ul li a:hover::before {
     transform-style: preserve-3d;
     perspective: 1200px;
     flex: 1;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-origin: center center;
 }
 
-.tab-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
-        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
-        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
-    background-size: 550px 550px, 350px 350px, 250px 250px;
-    background-position: 0 0, 40px 60px, 130px 270px;
-    z-index: -1;
-    opacity: 0.3;
-}
-
 .tab-section.active {
+    display: block;
     opacity: 1;
-    transform: translateZ(0) rotateY(0deg);
+    transform: translateY(0) rotateX(0deg);
+    animation: tabFadeIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-.tab-section.slide-out {
-    animation: slideOut 1.2s forwards cubic-bezier(0.645, 0.045, 0.355, 1.000);
-}
-
-.tab-section.slide-in {
-    animation: slideIn 1.2s forwards cubic-bezier(0.645, 0.045, 0.355, 1.000);
-}
-
-@keyframes slideOut {
-    0% { 
-        transform: translateZ(0) rotateY(0deg);
-        opacity: 1; 
+@keyframes tabFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) rotateX(10deg);
     }
-    25% {
-        transform: translateZ(-150px) rotateY(-30deg);
-        opacity: 0.8;
-    }
-    100% { 
-        transform: translateZ(-300px) rotateY(-90deg); 
-        opacity: 0; 
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
     }
 }
 
-@keyframes slideIn {
-    0% { 
-        transform: translateZ(-300px) rotateY(90deg); 
-        opacity: 0; 
-    }
-    50% {
-        transform: translateZ(-150px) rotateY(45deg);
-        opacity: 0.8;
-    }
-    100% { 
-        transform: translateZ(0) rotateY(0deg); 
-        opacity: 1; 
-    }
+.dynamic-text {
+    border-right: 3px solid #4facfe;
+    padding-right: 4px;
+    animation: blink 0.75s step-end infinite;
 }
 
-@media (max-width: 768px) {
-    .tab-section {
-        padding: 20px;
-        margin: 10px;
-        min-height: auto;
-    }
+@keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: #4facfe }
 }
 
 footer {
@@ -1079,5 +1042,117 @@ button:hover {
     
     .testimonials {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Rocket styles */.rocket {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    background-image: url('assets/rocket.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform-origin: center center;
+    z-index: 1;
+}
+
+/* Rocket animations */
+@keyframes rocketLaunch {
+    0% {
+        transform: translate(0, 0) rotate(-45deg);
+        opacity: 1;
+    }
+    25% {
+        transform: translate(-25vw, -25vh) rotate(-90deg);
+        opacity: 0.9;
+    }
+    75% {
+        transform: translate(-75vw, -75vh) rotate(-135deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(-100vw, -100vh) rotate(-180deg);
+        opacity: 0;
+    }
+}
+
+@keyframes rocketLand {
+    0% {
+        transform: translate(100vw, -100vh) rotate(135deg);
+        opacity: 0;
+    }
+    25% {
+        transform: translate(75vw, -75vh) rotate(90deg);
+        opacity: 0.7;
+    }
+    75% {
+        transform: translate(25vw, -25vh) rotate(0deg);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate(0, 0) rotate(-45deg);
+        opacity: 1;
+    }
+}
+
+/* Planet styles */
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: inset -25px -25px 40px rgba(0,0,0,.5);
+    background-size: cover;
+    z-index: 0;
+}
+
+.planet.earth {
+    width: 100px;
+    height: 100px;
+    bottom: 50px;
+    right: 50px;
+    background-image: url('assets/earth.svg');
+}
+
+.planet.moon {
+    width: 80px;
+    height: 80px;
+    bottom: 60px;
+    right: 60px;
+    background-image: url('assets/moon.svg');
+}
+
+.planet.mars {
+    width: 90px;
+    height: 90px;
+    bottom: 55px;
+    right: 55px;
+    background-image: url('assets/mars.svg');
+}
+
+/* Landing pad glow effect */
+.landing-pad {
+    position: absolute;
+    width: 80px;
+    height: 10px;
+    background: linear-gradient(to right, rgba(79, 172, 254, 0), rgba(79, 172, 254, 0.5), rgba(79, 172, 254, 0));
+    border-radius: 50%;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: padGlow 2s infinite alternate;
+}
+
+@keyframes padGlow {
+    from { opacity: 0.3; transform: translateX(-50%) scaleX(0.8); }
+    to { opacity: 0.8; transform: translateX(-50%) scaleX(1.2); }
+}
+
+@keyframes smokeAnimation {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-20px);
+        opacity: 0;
     }
 }

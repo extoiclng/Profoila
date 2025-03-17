@@ -7,15 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
         /* Reset some default styles */
         body, h1, h2, p, ul {
             margin: 0;
@@ -394,6 +389,119 @@
             left: 80%;
             animation-delay: 3.5s;
         }
+        
+        .carousel-inner a {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+        }
+        
+        .click-hint {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            animation: fadeInOut 3s infinite;
+            text-align: center;
+            width: 120px;
+            z-index: 10;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; text-shadow: none; }
+            50% { opacity: 1; text-shadow: 0 0 10px #4facfe, 0 0 20px #00f2fe; }
+            100% { opacity: 0; text-shadow: none; }
+        }
+        
+        .carousel-inner a:hover .click-hint {
+            opacity: 1;
+            animation: none;
+            text-shadow: 0 0 10px #4facfe, 0 0 20px #00f2fe;
+        }
+        
+        /* Liquid filling animation for skill bars */
+        @keyframes fillLiquid {
+            0% { width: 0; }
+            50% { width: calc(var(--skill-percent) * 0.7); }
+            75% { width: calc(var(--skill-percent) * 0.9); }
+            100% { width: var(--skill-percent); }
+        }
+        
+        .skill-progress-value {
+            position: relative;
+            overflow: hidden;
+            animation: fillLiquid 3.5s ease-in-out;
+        }
+        
+        .skill-progress-value::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(79, 172, 254, 0.5), rgba(0, 242, 254, 0.5));
+            animation: wave 3s infinite linear;
+            z-index: 1;
+        }
+        
+        @keyframes wave {
+            0% { transform: translateX(-100%) scale(0.7); }
+            100% { transform: translateX(100%) scale(0.7); }
+        }
+        
+        /* Rocket landing with smoke effect */
+        .rocket-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        
+        .rocket {
+            position: absolute;
+            width: 40px;
+            height: 80px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.13 22.19L11.5 18.36C13.07 17.78 14.54 17 15.9 16.09L13.13 22.19M5.64 12.5L1.81 10.87L7.91 8.1C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39C21.61 2.39 16.66 .269 11 5.93C8.81 8.12 7.5 10.53 6.65 12.64C6.37 13.39 6.56 14.21 7.11 14.77L9.24 16.89C9.79 17.45 10.61 17.63 11.36 17.35C13.5 16.53 15.88 15.19 18.07 13C23.73 7.34 21.61 2.39 21.61 2.39M14.54 9.46C13.76 8.68 13.76 7.41 14.54 6.63S16.59 5.85 17.37 6.63C18.14 7.41 18.15 8.68 17.37 9.46C16.59 10.24 15.32 10.24 14.54 9.46M8.88 16.53L7.47 15.12L8.88 16.53Z" fill="%234facfe"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            left: 50%;
+            transform: translateX(-50%) rotate(225deg);
+            top: -100px;
+            animation: rocketLand 4s ease-out forwards;
+            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.7));
+        }
+        
+        @keyframes rocketLand {
+            0% { top: -100px; }
+            100% { top: 110%; }
+        }
+        
+        .smoke-particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(79,172,254,0.2) 70%, transparent 100%);
+            animation: smokeFade 3s ease-out forwards;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        }
+        
+        @keyframes smokeFade {
+            0% { transform: scale(0.2); opacity: 0.9; }
+            100% { transform: scale(2); opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -426,7 +534,7 @@
             <h3>Professional Summary</h3>
             <p>I am a <span class="highlight">passionate web developer</span> with expertise in creating responsive, user-friendly websites and applications. Leveraging my strong foundation in <span class="highlight">HTML, CSS, JavaScript</span>, and modern frameworks, I craft dynamic digital experiences that engage users and deliver business results.</p>
             <p>My approach combines <span class="highlight">technical precision</span> with <span class="highlight">creative problem-solving</span> to develop elegant solutions for complex challenges. I thrive in collaborative environments and am committed to continuous learning in this ever-evolving field.</p>
-            <a href="#contact" class="call-to-action">Hire Me</a>
+            <a href="#contact" class="call-to-action" onclick="navigateToSection('contact')">Hire Me</a>
             <a href="#" class="resume-button"><i class="fas fa-file-pdf"></i> Download Resume</a>
         </div>
         
@@ -454,10 +562,17 @@
             <div class="carousel-inner">
                 <a href="#" data-modal-target="0" aria-label="Point of Sale System">
                     <img src="tech.png" alt="Project 1">
+                    <span class="click-hint">Click to view details</span>
                 </a>
 
                 <a href="#" data-modal-target="1" aria-label="Banking Application">
                     <img src="bank.png" alt="Project 2">
+                    <span class="click-hint">Click to view details</span>
+                </a>
+                
+                <a href="#" data-modal-target="2" aria-label="E-commerce Platform">
+                    <img src="tech.png" alt="Project 3">
+                    <span class="click-hint">Click to view details</span>
                 </a>
             </div>
             <div class="arrows">
@@ -467,6 +582,7 @@
             <div class="carousel-indicators">
                 <span class="carousel-indicator active" onclick="goToSlide(0)"></span>
                 <span class="carousel-indicator" onclick="goToSlide(1)"></span>
+                <span class="carousel-indicator" onclick="goToSlide(2)"></span>
             </div>
         </div>
         <div class="project-description">
@@ -565,6 +681,52 @@
                 </div>
             </div>
         </div>
+        
+        <div class="project-modal" id="projectModal2">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeProjectModal(2)"><i class="fas fa-times"></i></button>
+                <div class="modal-header">
+                    <h2>E-commerce Platform</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-image">
+                        <img src="tech.png" alt="E-commerce Platform">
+                    </div>
+                    <div class="modal-details">
+                        <h3>Project Overview</h3>
+                        <p>A custom e-commerce platform built with modern technologies, featuring product management, order tracking, and customer management capabilities. This application streamlines online shopping operations and provides valuable business analytics.</p>
+                        
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>Intuitive dashboard with real-time sales metrics</li>
+                            <li>Product management with automatic stock alerts</li>
+                            <li>Customer relationship management integration</li>
+                            <li>Secure payment processing with multiple options</li>
+                            <li>Customizable reporting and analytics</li>
+                        </ul>
+                        
+                        <h3>Technologies Used</h3>
+                        <div class="tech-stack">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">Node.js</span>
+                            <span class="tech-badge">Express</span>
+                            <span class="tech-badge">MongoDB</span>
+                        </div>
+                        
+                        <div class="project-links">
+                            <a href="https://github.com/extoiclng/E-commerce-Platform" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <a href="#" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <section id="skills" class="tab-section animate-on-scroll" data-aos="fade-up">
         <h2 class="section-title glow-text">Skills</h2>
@@ -577,7 +739,7 @@
                     <span>95%</span>
                 </div>
                 <div class="skill-bar">
-                    <div class="skill-progress-value" style="width: 95%"></div>
+                    <div class="skill-progress-value" style="width: 95%" --skill-percent="95%"></div>
                 </div>
             </div>
             
@@ -587,7 +749,7 @@
                     <span>90%</span>
                 </div>
                 <div class="skill-bar">
-                    <div class="skill-progress-value" style="width: 90%"></div>
+                    <div class="skill-progress-value" style="width: 90%" --skill-percent="90%"></div>
                 </div>
             </div>
             
@@ -597,7 +759,7 @@
                     <span>85%</span>
                 </div>
                 <div class="skill-bar">
-                    <div class="skill-progress-value" style="width: 85%"></div>
+                    <div class="skill-progress-value" style="width: 85%" --skill-percent="85%"></div>
                 </div>
             </div>
             
@@ -607,7 +769,7 @@
                     <span>80%</span>
                 </div>
                 <div class="skill-bar">
-                    <div class="skill-progress-value" style="width: 80%"></div>
+                    <div class="skill-progress-value" style="width: 80%" --skill-percent="80%"></div>
                 </div>
             </div>
             
@@ -617,7 +779,7 @@
                     <span>75%</span>
                 </div>
                 <div class="skill-bar">
-                    <div class="skill-progress-value" style="width: 75%"></div>
+                    <div class="skill-progress-value" style="width: 75%" --skill-percent="75%"></div>
                 </div>
             </div>
         </div>
@@ -711,62 +873,65 @@
             <textarea id="message" name="message" rows="5" required></textarea>
             
             <button type="submit" class="call-to-action">Send Message</button>
+            <div id="formStatus" style="margin-top: 15px; text-align: center; min-height: 30px;"></div>
         </form>
     </section>
     <footer>
         <p>&copy; Follow Me!</p>
     </footer>
     <audio id="clickSound" src="monkey.mp3" preload="auto"></audio>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script defer src="animations.js"></script>
     <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("fAZVPwTVQWkvQLY30"); // Replace with your EmailJS public key
+        })();
+        
         // Add click sound to GIF
         document.getElementById('monkeyGif').addEventListener('click', function() {
             document.getElementById('clickSound').play();
         });
-
+        
         // Removed duplicate declaration
         const projectDescriptionsArray = [
-
             "Point of Sale System - A complete retail management solution",
             "Banking Application - Secure online banking platform",
-            "Project 3 - Description coming soon"
+            "E-commerce Platform - Custom online shopping experience"
         ];
-
+        
         // Tab Navigation with 3D Animation
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('nav ul li a');
             const sections = document.querySelectorAll('.tab-section');
-
+            
             tabs.forEach(tab => {
                 tab.addEventListener('click', (e) => {
                     e.preventDefault();
                     const target = tab.getAttribute('data-tab');
-
+                    
                     // Hide all sections
                     sections.forEach(section => {
                         section.style.display = 'none';
                         section.classList.remove('active');
                     });
-
+                    
                     // Show the selected section with 3D animation
                     const activeSection = document.getElementById(target);
                     activeSection.style.display = 'block';
                     activeSection.classList.add('active');
                 });
             });
-
+            
             // Initialize the first tab as active
             document.querySelector('nav ul li a').click();
         });
-
+        
         // Typewriter Effect
         const texts = ["Developer", "Designer", "Youtuber"];
         let speed = 100;
         const textElement = document.querySelector(".dynamic-text");
         let textIndex = 0;
         let charIndex = 0;
-
+        
         function typeWriter() {
             if (charIndex < texts[textIndex].length) {
                 textElement.textContent += texts[textIndex].charAt(charIndex);
@@ -776,7 +941,7 @@
                 setTimeout(eraseText, 1000);
             }
         }
-
+        
         function eraseText() {
             if (textElement.textContent.length > 0) {
                 textElement.textContent = textElement.textContent.slice(0, -1);
@@ -787,17 +952,17 @@
                 setTimeout(typeWriter, 500);
             }
         }
-
+        
         // Start the typewriter effect
         typeWriter();
-
+        
         // Image Flipping Functionality
         let index = 0;
         const images = document.querySelectorAll('.carousel-inner a');
         const totalImages = images.length;
-
+        
         let currentTypeInterval = null;
-
+        
         function changeSlide(step) {
             // Clear current description and any ongoing typing
             const descElement = document.getElementById('projectDesc');
@@ -823,9 +988,9 @@
                 }
             }, 50);
         }
-
+        
         document.getElementById('projectDesc').textContent = projectDescriptionsArray[0];
-
+        
         AOS.init({ offset: 0 });
         
         // Project Modal Functionality
@@ -833,12 +998,12 @@
             const modal = document.getElementById(`projectModal${index}`);
             modal.style.display = 'block';
         }
-
+        
         function closeProjectModal(index) {
             const modal = document.getElementById(`projectModal${index}`);
             modal.style.display = 'none';
         }
-
+        
         // Carousel links event listener
         const carouselLinks = document.querySelectorAll('.carousel-inner a');
         carouselLinks.forEach(link => {
@@ -848,6 +1013,138 @@
                 openProjectModal(modalTarget);
             });
         });
+        
+        // Function to send email from contact form
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const statusDiv = document.getElementById('formStatus');
+            const submitButton = document.querySelector('#contactForm .call-to-action');
+            
+            // Disable button and show loading animation
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            // Show loading message with glowing effect and gradient color
+            statusDiv.innerHTML = '<div class="glow-text" style="background: linear-gradient(to right, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">Sending your message...</div>';
+            
+            // EmailJS parameters
+            const templateParams = {
+                from_name: name,
+                reply_to: email,
+                message: message
+            };
+            
+            // Add a slight delay to show the animation
+            setTimeout(() => {
+                // Send email using EmailJS
+                emailjs.send('service_xhvj0f1', 'template_qvn5swp', templateParams)
+                    .then(function(response) {
+                        console.log('Email sent!', response.status, response.text);
+                        
+                        // Reset button
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = 'Send Message';
+                        
+                        // Show success message with enhanced glowing effect and gradient
+                        statusDiv.innerHTML = '<div class="glow-text" style="background: linear-gradient(to right, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;"><i class="fas fa-check-circle"></i> Message sent successfully!</div>';
+                        
+                        // Add a subtle animation to the success message
+                        const successMsg = statusDiv.querySelector('div');
+                        successMsg.style.animation = 'float 2s ease-in-out infinite';
+                        
+                        // Reset form
+                        document.getElementById('contactForm').reset();
+                        
+                        // Clear status message after 5 seconds
+                        setTimeout(() => {
+                            // Fade out animation
+                            successMsg.style.transition = 'opacity 0.5s ease';
+                            successMsg.style.opacity = 0;
+                            setTimeout(() => {
+                                statusDiv.innerHTML = '';
+                            }, 500);
+                        }, 5000);
+                    }, function(error) {
+                        console.error('Email sending failed:', error);
+                        
+                        // Reset button
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = 'Send Message';
+                        
+                        // Show error message with appropriate styling
+                        statusDiv.innerHTML = `<div style="color: #ff3333; font-weight: bold;"><i class="fas fa-exclamation-circle"></i> Error sending message: ${error.text}</div>`;
+                        
+                        // Clear error message after 5 seconds
+                        setTimeout(() => {
+                            const errorMsg = statusDiv.querySelector('div');
+                            errorMsg.style.transition = 'opacity 0.5s ease';
+                            errorMsg.style.opacity = 0;
+                            setTimeout(() => {
+                                statusDiv.innerHTML = '';
+                            }, 500);
+                        }, 5000);
+                    });
+            }, 500); // Short delay for better user experience
+        });
+        
+        // Function to navigate to a section
+        function navigateToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Rocket landing animation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create rocket container
+            const rocketContainer = document.createElement('div');
+            rocketContainer.className = 'rocket-container';
+            
+            // Create rocket element
+            const rocket = document.createElement('div');
+            rocket.className = 'rocket';
+            rocketContainer.appendChild(rocket);
+            
+            // Create smoke particles
+            const smokeCount = 15;
+            for (let i = 0; i < smokeCount; i++) {
+                const smoke = document.createElement('div');
+                smoke.className = 'smoke-particle';
+                
+                // Random positions and animation delays
+                const left = 40 + Math.random() * 20; // Centered along the rocket path
+                const top = 60 + Math.random() * 40; // Below the rocket
+                const delay = Math.random() * 4; // Random delay
+                const size = 10 + Math.random() * 20; // Random size
+                
+                smoke.style.cssText = `
+                    left: ${left}%;
+                    top: ${top}%;
+                    animation-delay: ${delay}s;
+                    width: ${size}px;
+                    height: ${size}px;
+                `;
+                
+                rocketContainer.appendChild(smoke);
+            }
+            
+            // Add to body
+            document.body.appendChild(rocketContainer);
+            
+            // Remove rocket container after animation completes
+            setTimeout(() => {
+                rocketContainer.style.opacity = '0';
+                rocketContainer.style.transition = 'opacity 1s ease';
+                
+                setTimeout(() => {
+                    document.body.removeChild(rocketContainer);
+                }, 1000);
+            }, 5000); // Match this to your rocket animation duration + smoke duration
+        });
     </script>
+    <script src="animations.js"></script>
 </body>
 </html>

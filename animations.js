@@ -27,28 +27,184 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('nav ul li a');
     const sections = document.querySelectorAll('.tab-section');
     let currentActive = null;
-    let isAnimating = false; // Flag to prevent double animations
+    let isAnimating = false;
     
-    // Add animation styles
-    const style = document.createElement('style');
-    style.innerHTML = `
-        @keyframes bounceIn {
-            0% { transform: scale(0); opacity: 0; }
-            60% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+    // Add planets and landing pads to sections
+    sections.forEach((section, index) => {
+        const planetType = index === 0 ? 'earth' : 
+                         index === 1 ? 'moon' : 
+                         index === 2 ? 'mars' : 'earth';
         
-        .active-tab {
-            color: #4facfe !important;
-            background-color: rgba(79, 172, 254, 0.1);
-            transform: translateY(-3px);
-        }
+        // Add planet
+        const planet = document.createElement('div');
+        planet.className = `planet ${planetType}`;
+        section.appendChild(planet);
         
-        .active-tab::before {
-            width: 100% !important;
+        // Add landing pad
+        const landingPad = document.createElement('div');
+        landingPad.className = 'landing-pad';
+        planet.appendChild(landingPad);
+    });
+    
+    // Create rocket and astronaut
+    const rocket = document.createElement('div');
+    rocket.className = 'rocket';
+    document.body.appendChild(rocket);
+    
+    const astronaut = document.createElement('div');
+    astronaut.className = 'astronaut';
+    document.body.appendChild(astronaut);
+    
+    // Position rocket and astronaut initially
+    positionRocketAndAstronaut('home');
+    
+    // Tab click event with improved error handling
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (isAnimating) return;
+            
+            const tabId = this.getAttribute('data-tab');
+            if (!tabId || currentActive === tabId) return;
+            
+            // Remove active class from all tabs
+            tabs.forEach(t => t.classList.remove('active-tab'));
+            
+            // Add active class to current tab
+            this.classList.add('active-tab');
+            
+            // Animate rocket launch
+            animateTabTransition(currentActive, tabId);
+        });
+    });
+    
+    function positionRocketAndAstronaut(tabId) {
+        const section = document.getElementById(tabId);
+        if (!section) return;
+        
+        const planet = section.querySelector('.planet');
+        if (!planet) return;
+        
+        const planetRect = planet.getBoundingClientRect();
+        
+        // Position relative to the planet
+        const rocketX = planetRect.right - 90; // Adjust for rocket size
+        const rocketY = planetRect.top + 20; // Land slightly above the planet
+        
+        rocket.style.left = `${rocketX}px`;
+        rocket.style.top = `${rocketY}px`;
+        rocket.style.transform = 'rotate(-45deg)'; // Landing angle
+        
+        // Position astronaut near the rocket
+        const astronautX = rocketX + 40;
+        const astronautY = rocketY + 10;
+        
+        astronaut.style.left = `${astronautX}px`;
+        astronaut.style.top = `${astronautY}px`;
+    }
+    
+    function animateTabTransition(fromTab, toTab) {
+        isAnimating = true;
+        
+        // Get the current and target planets' positions
+        const currentSection = document.getElementById(fromTab);
+        const targetSection = document.getElementById(toTab);
+        const currentPlanet = currentSection?.querySelector('.planet');
+        const targetPlanet = targetSection?.querySelector('.planet');
+        
+        if (!currentPlanet || !targetPlanet) return;
+        
+        const currentRect = currentPlanet.getBoundingClientRect();
+        const targetRect = targetPlanet.getBoundingClientRect();
+        
+        // Calculate trajectory
+        const startX = currentRect.right - 90;
+        const startY = currentRect.top + 20;
+        const endX = targetRect.right - 90;
+        const endY = targetRect.top + 20; // Adjust to land slightly above the planet
+        
+        // Reset animations first
+        rocket.style.animation = 'none';
+        astronaut.style.animation = 'none';
+        rocket.offsetHeight; // Force reflow
+        
+        // Launch animation
+        setTimeout(() => {
+            rocket.style.animation = 'rocketLaunch 2s forwards';
+            console.log('Rocket animation started');
+            
+            // Switch tab content after launch
+            setTimeout(() => {
+                createSmokeParticles();
+                switchTab(toTab);
+                
+                // Reset positions for landing
+                rocket.style.left = `${endX}px`;
+                rocket.style.top = `${endY}px`;
+                
+                // Reset animations again before landing
+                rocket.style.animation = 'none';
+                astronaut.style.animation = 'none';
+                rocket.offsetHeight; // Force reflow
+                
+                // Start landing animation
+                rocket.style.animation = 'rocketLand 2s ease-in-out forwards';
+                astronaut.style.animation = 'rocketLand 2s forwards';
+                
+                setTimeout(() => {
+                    createSmokeParticles();
+                    isAnimating = false;
+                    currentActive = toTab;
+                    
+                    // Final position adjustment
+                    positionRocketAndAstronaut(toTab);
+                    
+                    // Clear animations after landing
+                    rocket.style.animation = 'none';
+                    astronaut.style.animation = 'none';
+                }, 2000);
+            }, 2000);
+        }, 250);
+    }
+    
+    function switchTab(tabId) {
+        if (!tabId) return;
+        
+        const sections = document.querySelectorAll('.tab-section');
+        const targetSection = document.getElementById(tabId);
+        
+        if (!targetSection) return;
+        
+        const currentSection = document.querySelector('.tab-section.active');
+        
+        if (currentSection) {
+            currentSection.style.opacity = '0';
+            currentSection.style.transform = 'translateY(-20px) rotateX(10deg)';
+            
+            setTimeout(() => {
+                currentSection.style.display = 'none';
+                currentSection.classList.remove('active');
+                
+                targetSection.style.display = 'block';
+                targetSection.classList.add('active');
+                
+                // Force reflow
+                void targetSection.offsetWidth;
+                
+                // Trigger animation
+                targetSection.style.opacity = '1';
+                targetSection.style.transform = 'translateY(0) rotateX(0deg)';
+                
+                if (tabId === 'skills') {
+                    setTimeout(animateSkillBars, 300);
+                }
+            }, 400);
+        } else {
+            targetSection.style.display = 'block';
+            targetSection.classList.add('active');
         }
-    `;
-    document.head.appendChild(style);
+    }
     
     // Set Home as initial active tab
     const initialTab = document.querySelector('nav ul li a[data-tab="home"]');
@@ -61,102 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
             homeSection.style.opacity = '1';
             homeSection.style.transform = 'translateY(0) rotateX(0deg)';
             currentActive = 'home';
-            
-            // Preload images in the home section
-            preloadImagesInSection(homeSection);
         }
     }
-    
-    // Tab click event with improved error handling
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            if (isAnimating) return; // Prevent clicking during animation
-            
-            const tabId = this.getAttribute('data-tab');
-            if (!tabId) return;
-            
-            // Skip if clicking the current active tab
-            if (currentActive === tabId) return;
-            
-            // Remove active class from all tabs
-            tabs.forEach(t => t.classList.remove('active-tab'));
-            
-            // Add active class to current tab
-            this.classList.add('active-tab');
-            
-            // Switch tab content with animation
-            switchTab(tabId);
-        });
-    });
 });
-
-// Enhanced tab transition with 3D effect
-function switchTab(tabId) {
-    if (!tabId) return;
-    
-    const sections = document.querySelectorAll('.tab-section');
-    const targetSection = document.getElementById(tabId);
-    
-    if (!targetSection) {
-        console.error(`Target section with ID '${tabId}' not found`);
-        return;
-    }
-    
-    isAnimating = true;
-    
-    // Get current active section
-    const currentSection = document.querySelector('.tab-section.active');
-    
-    if (currentSection) {
-        // Animate current section out
-        currentSection.style.transform = 'translateY(-20px) rotateX(-10deg)';
-        currentSection.style.opacity = '0';
-        
-        setTimeout(() => {
-            currentSection.style.display = 'none';
-            currentSection.classList.remove('active');
-            
-            // Animate new section in
-            targetSection.style.display = 'block';
-            targetSection.classList.add('active');
-            
-            // Trigger a reflow
-            void targetSection.offsetWidth;
-            
-            targetSection.style.opacity = '1';
-            targetSection.style.transform = 'translateY(0) rotateX(0deg)';
-            
-            // Preload images in the target section
-            preloadImagesInSection(targetSection);
-            
-            // Start skill bar animations if skills tab
-            if (tabId === 'skills') {
-                setTimeout(animateSkillBars, 500);
-            }
-            
-            currentActive = tabId;
-            
-            // Reset animation flag after animation completes
-            setTimeout(() => {
-                isAnimating = false;
-            }, 800);
-        }, 600);
-    } else {
-        // If no current section (first load), just show the target
-        targetSection.style.display = 'block';
-        targetSection.classList.add('active');
-        targetSection.style.opacity = '1';
-        targetSection.style.transform = 'translateY(0) rotateX(0deg)';
-        
-        // Preload images in the target section
-        preloadImagesInSection(targetSection);
-        
-        currentActive = tabId;
-        isAnimating = false;
-    }
-}
 
 // Pre-load images function
 function preloadImagesInSection(section) {
@@ -299,21 +362,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const dynamicText = document.querySelector('.dynamic-text');
     if (dynamicText) {
         new Typewriter(dynamicText, [
-            'Web Developer', 
-            'UI/UX Designer', 
-            'Software Engineer',
-            'Problem Solver'
+            "Welcome to my portfolio!",
+            "I'm a passionate developer",
+            "Let's create something amazing together!"
         ], {
             typeSpeed: 80,
-            deleteSpeed: 50
+            deleteSpeed: 40,
+            pauseBeforeDelete: 2000,
+            pauseBeforeType: 500
         });
     }
-    
-    // Project descriptions typewriter - initialize with first description
-    initProjectDescriptionTypewriter(0);
+
+    // Initialize AOS
+    AOS.init({
+        duration: 1000,
+        once: true,
+        mirror: false
+    });
+
+    // Add smooth scrolling to all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
 });
 
-// Initialize project description typewriter with the specified index
+// Initialize project description typewriter - initialize with first description
 function initProjectDescriptionTypewriter(index) {
     const projectDesc = document.getElementById('projectDesc');
     if (!projectDesc) return;
