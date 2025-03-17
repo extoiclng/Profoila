@@ -725,7 +725,8 @@
             document.getElementById('clickSound').play();
         });
 
-        const projectDescriptions = [
+        // Removed duplicate declaration
+        const projectDescriptionsArray = [
 
             "Point of Sale System - A complete retail management solution",
             "Banking Application - Secure online banking platform",
@@ -811,7 +812,7 @@
             
             // Type new description
             let currentChar = 0;
-            const description = projectDescriptions[index];
+            const description = projectDescriptionsArray[index];
             currentTypeInterval = setInterval(() => {
                 if (currentChar < description.length) {
                     descElement.textContent += description.charAt(currentChar);
@@ -823,7 +824,7 @@
             }, 50);
         }
 
-        document.getElementById('projectDesc').textContent = projectDescriptions[0];
+        document.getElementById('projectDesc').textContent = projectDescriptionsArray[0];
 
         AOS.init({ offset: 0 });
         
