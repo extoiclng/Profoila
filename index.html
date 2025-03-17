@@ -6,7 +6,7 @@
     <title>My Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
     <style>
@@ -138,6 +138,10 @@
         .arrows button:hover {
             opacity: 1;
         }
+
+        .glow-text {
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff, 0 0 40px #ffffff, 0 0 50px #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -148,16 +152,15 @@
                 <li><a href="#" data-tab="projects">Projects</a></li>
                 <li><a href="#" data-tab="skills">Skills</a></li>
                 <li><a href="#" data-tab="education">Education</a></li>
-
                 <li><a href="#" data-tab="contact">Contact</a></li>
             </ul>
         </nav>
     </header>
-    <section id="home" class="tab-section active animate-on-scroll" data-aos="fade-up">
-        <h2>Home</h2>
+    <section id="home" class="tab-section animate-on-scroll" data-aos="fade-up">
+        <h2 class="section-title glow-text">Home</h2>
         <p>This is a brief introduction about myself. Information about myself goes here.</p>
         <div class="animated-label">
-            <span>I'm a </span><span class="dynamic-text"></span>
+            <span class="greeting glow-text">I'm a </span><span class="dynamic-text"></span>
         </div>
         <div class="social-links" data-aos="fade-up" data-aos-duration="1500">
             <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
@@ -172,7 +175,7 @@
         </div>
     </section>
     <section id="projects" class="tab-section animate-on-scroll" data-aos="fade-up">
-        <h2>Projects</h2>
+        <h2 class="section-title glow-text">Projects</h2>
         <p>Showcase of my work will be displayed here.</p>
         <div class="carousel" role="region" aria-label="Image Carousel">
             <div class="carousel-inner">
@@ -184,8 +187,12 @@
 
             </div>
             <div class="arrows">
-                <button onclick="changeSlide(-1)" aria-label="Previous Slide"><&#10094;</button>
-                <button onclick="changeSlide(1)" aria-label="Next Slide"> &#10095;</button>
+                <button onclick="changeSlide(-1)" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="changeSlide(1)" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="carousel-indicators">
+                <span class="carousel-indicator active" onclick="goToSlide(0)"></span>
+                <span class="carousel-indicator" onclick="goToSlide(1)"></span>
             </div>
         </div>
         <div class="project-description">
@@ -194,7 +201,7 @@
     </section>
 
     <section id="skills" class="tab-section animate-on-scroll" data-aos="fade-up">
-        <h2>Skills</h2>
+        <h2 class="section-title glow-text">Skills</h2>
         <div class="skills-container">
             <div class="skill-item">
                 <i class="fa-brands fa-html5"></i>
@@ -254,6 +261,7 @@
     </section>
 
     <section id="education" class="tab-section animate-on-scroll" data-aos="fade-up">
+        <h2 class="section-title glow-text">Education</h2>
         <div class="education-container" style="display: flex; gap: 20px;">
             <div class="education-text" style="flex: 1;">
                 <p class="dynamic-text">Technology High School in Newark, New Jersey, is a specialized magnet school focusing on STEM (Science, Technology, Engineering, and Mathematics) education. It offers rigorous academic programs designed to prepare students for careers in engineering, computer science, and other technology-related fields. The school emphasizes hands-on learning, problem-solving, and real-world applications of technology.</p>
@@ -270,6 +278,7 @@
 
 
     <section id="contact" class="tab-section animate-on-scroll" data-aos="fade-up">
+        <h2 class="section-title glow-text">Contact Me</h2>
         <form id="contactForm" netlify style="max-width: 600px; margin: 0 auto;">
 
             <label for="name">Name:</label>
@@ -325,6 +334,7 @@
     </footer>
     <audio id="clickSound" src="monkey.mp3" preload="auto"></audio>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script defer src="animations.js"></script>
     <script>
         // Add click sound to GIF
         document.querySelector('.image-box img').addEventListener('click', function() {
@@ -429,8 +439,6 @@
             }, 50);
         }
 
-        
-        // Initialize first description
         document.getElementById('projectDesc').textContent = projectDescriptions[0];
 
         AOS.init({ offset: 0 });
