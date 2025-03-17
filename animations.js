@@ -274,8 +274,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'A Point of Sale system built with modern technologies. Features include inventory management, sales tracking, and customer management.',
             'A banking application prototype with secure authentication and transaction processing capabilities.'
         ];
+        projectDesc.textContent = ''; // Clear existing text
         
-        projectDesc.textContent = ''; // Clear any initial text
         new Typewriter(projectDesc, [descriptions[0]], {
             typeSpeed: 50,
             deleteSpeed: 30,
