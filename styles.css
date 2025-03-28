@@ -10,7 +10,9 @@ body {
     padding: 0;
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #121212 0%, #000000 100%);
-    background-image: url('assets/texture.svg');
+    background-image: 
+        url('assets/texture.svg'), /* Top layer */
+        url('assets/stars.svg');   /* Bottom layer */
     background-attachment: fixed;
     position: relative;
     overflow-x: hidden;
